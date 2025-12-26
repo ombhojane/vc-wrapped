@@ -13,21 +13,12 @@ import { useCallData } from '../hooks/useCallData';
 import { calculateWrappedStats } from '../services/statsProcessor';
 import { WrappedStats } from '../types';
 import { formatDuration } from '../utils/formatters';
+import { fonts, wrappedGradients, glassEffect } from '../theme';
 
-const { width, height } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
-// Gradient color palettes for each slide
-const SLIDE_COLORS = [
-    ['#7C3AED', '#4F46E5'], // Purple
-    ['#EC4899', '#F97316'], // Pink-Orange
-    ['#10B981', '#14B8A6'], // Teal
-    ['#F59E0B', '#EF4444'], // Orange-Red
-    ['#3B82F6', '#8B5CF6'], // Blue-Purple
-    ['#EF4444', '#F97316'], // Red-Orange
-    ['#6366F1', '#EC4899'], // Indigo-Pink
-    ['#14B8A6', '#3B82F6'], // Teal-Blue
-    ['#7C3AED', '#EC4899'], // Purple-Pink
-];
+// Use theme gradients
+const SLIDE_COLORS = wrappedGradients;
 
 // Wisdom quotes for the quotes slide
 const WISDOM_QUOTES = [
@@ -42,6 +33,13 @@ interface SlideProps {
     onNext: () => void;
     onPrev: () => void;
 }
+
+// Glass card style
+const glassCard = {
+    ...glassEffect,
+    padding: 20,
+    marginBottom: 12,
+};
 
 // Slide 1: Total Talk Time
 const TotalTalkTimeSlide: React.FC<SlideProps> = ({ stats }) => (
@@ -316,10 +314,10 @@ const WrappedScreen: React.FC = () => {
     }
     
     const CurrentSlideComponent = SLIDES[currentSlide];
-    const colors = SLIDE_COLORS[currentSlide % SLIDE_COLORS.length];
+    const slideColors = SLIDE_COLORS[currentSlide % SLIDE_COLORS.length];
     
     return (
-        <SafeAreaView style={[styles.container, { backgroundColor: colors[0] }]}>
+        <SafeAreaView style={[styles.container, { backgroundColor: slideColors[0] }]}>
             <ProgressBar current={currentSlide} total={totalSlides} />
             
             <TouchableOpacity
@@ -388,33 +386,36 @@ const styles = StyleSheet.create({
         marginBottom: 16,
     },
     slideLabel: {
-        fontSize: 16,
-        fontWeight: '600',
+        fontSize: 14,
+        fontFamily: fonts.semiBold,
         color: 'rgba(255,255,255,0.8)',
         textTransform: 'uppercase',
-        letterSpacing: 2,
+        letterSpacing: 3,
         marginBottom: 16,
     },
     slideSubLabel: {
         fontSize: 18,
+        fontFamily: fonts.regular,
         color: 'rgba(255,255,255,0.9)',
         marginBottom: 24,
         textAlign: 'center',
     },
     bigNumber: {
-        fontSize: 80,
-        fontWeight: '800',
+        fontSize: 72,
+        fontFamily: fonts.bold,
         color: '#fff',
         textAlign: 'center',
     },
     bigNumberUnit: {
-        fontSize: 20,
+        fontSize: 18,
+        fontFamily: fonts.medium,
         color: 'rgba(255,255,255,0.9)',
         marginTop: 8,
         textAlign: 'center',
     },
     subStat: {
-        fontSize: 18,
+        fontSize: 16,
+        fontFamily: fonts.regular,
         color: 'rgba(255,255,255,0.9)',
         marginTop: 16,
         textAlign: 'center',
@@ -423,28 +424,31 @@ const styles = StyleSheet.create({
         marginTop: 32,
     },
     subtext: {
-        fontSize: 18,
+        fontSize: 16,
+        fontFamily: fonts.light,
         color: 'rgba(255,255,255,0.8)',
         textAlign: 'center',
         fontStyle: 'italic',
-        lineHeight: 28,
+        lineHeight: 26,
     },
     personalityTitle: {
-        fontSize: 28,
-        fontWeight: '700',
+        fontSize: 26,
+        fontFamily: fonts.bold,
         color: '#fff',
         textAlign: 'center',
         marginBottom: 16,
     },
     personalityDesc: {
-        fontSize: 18,
+        fontSize: 16,
+        fontFamily: fonts.regular,
         color: 'rgba(255,255,255,0.9)',
         textAlign: 'center',
-        lineHeight: 28,
+        lineHeight: 26,
         paddingHorizontal: 16,
     },
     factText: {
-        fontSize: 16,
+        fontSize: 14,
+        fontFamily: fonts.regular,
         color: 'rgba(255,255,255,0.7)',
         textAlign: 'center',
         marginTop: 24,
@@ -452,15 +456,17 @@ const styles = StyleSheet.create({
     contactCard: {
         flexDirection: 'row',
         backgroundColor: 'rgba(255,255,255,0.15)',
-        borderRadius: 16,
+        borderRadius: 20,
+        borderWidth: 1,
+        borderColor: 'rgba(255,255,255,0.2)',
         padding: 16,
         marginBottom: 12,
         width: '100%',
     },
     contactRank: {
-        width: 40,
-        height: 40,
-        borderRadius: 20,
+        width: 44,
+        height: 44,
+        borderRadius: 22,
         backgroundColor: 'rgba(255,255,255,0.2)',
         justifyContent: 'center',
         alignItems: 'center',
@@ -468,7 +474,7 @@ const styles = StyleSheet.create({
     },
     rankNumber: {
         fontSize: 16,
-        fontWeight: '700',
+        fontFamily: fonts.bold,
         color: '#fff',
     },
     contactInfo: {
@@ -476,17 +482,19 @@ const styles = StyleSheet.create({
     },
     contactName: {
         fontSize: 18,
-        fontWeight: '600',
+        fontFamily: fonts.semiBold,
         color: '#fff',
         marginBottom: 4,
     },
     contactStats: {
-        fontSize: 14,
+        fontSize: 13,
+        fontFamily: fonts.regular,
         color: 'rgba(255,255,255,0.8)',
         marginBottom: 8,
     },
     contactQuote: {
-        fontSize: 14,
+        fontSize: 13,
+        fontFamily: fonts.light,
         color: 'rgba(255,255,255,0.7)',
         fontStyle: 'italic',
     },
@@ -497,8 +505,8 @@ const styles = StyleSheet.create({
         marginVertical: 32,
     },
     dayName: {
-        fontSize: 48,
-        fontWeight: '700',
+        fontSize: 42,
+        fontFamily: fonts.bold,
         color: '#fff',
         marginBottom: 16,
     },
@@ -506,13 +514,15 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         flexWrap: 'wrap',
         justifyContent: 'center',
-        gap: 16,
+        gap: 12,
         marginVertical: 24,
     },
     breakdownItem: {
-        width: (width - 80) / 2,
+        width: (width - 72) / 2,
         backgroundColor: 'rgba(255,255,255,0.15)',
-        borderRadius: 16,
+        borderRadius: 20,
+        borderWidth: 1,
+        borderColor: 'rgba(255,255,255,0.2)',
         padding: 16,
         alignItems: 'center',
     },
@@ -521,56 +531,62 @@ const styles = StyleSheet.create({
         marginBottom: 8,
     },
     breakdownPercent: {
-        fontSize: 32,
-        fontWeight: '700',
+        fontSize: 28,
+        fontFamily: fonts.bold,
         color: '#fff',
     },
     breakdownLabel: {
-        fontSize: 14,
+        fontSize: 12,
+        fontFamily: fonts.medium,
         color: 'rgba(255,255,255,0.8)',
         marginTop: 4,
         textAlign: 'center',
     },
     footerText: {
-        fontSize: 18,
+        fontSize: 16,
+        fontFamily: fonts.regular,
         color: 'rgba(255,255,255,0.9)',
         textAlign: 'center',
         marginTop: 8,
     },
     insightBox: {
         backgroundColor: 'rgba(255,255,255,0.15)',
-        borderRadius: 16,
+        borderRadius: 20,
+        borderWidth: 1,
+        borderColor: 'rgba(255,255,255,0.2)',
         padding: 24,
         marginVertical: 24,
         width: '100%',
     },
     insightText: {
-        fontSize: 20,
+        fontSize: 18,
+        fontFamily: fonts.medium,
         color: '#fff',
         textAlign: 'center',
-        lineHeight: 32,
+        lineHeight: 30,
     },
     quoteText: {
-        fontSize: 28,
-        fontWeight: '600',
+        fontSize: 26,
+        fontFamily: fonts.semiBold,
         color: '#fff',
         textAlign: 'center',
-        lineHeight: 44,
+        lineHeight: 42,
         fontStyle: 'italic',
     },
     finalText: {
-        fontSize: 24,
-        fontWeight: '600',
+        fontSize: 22,
+        fontFamily: fonts.semiBold,
         color: '#fff',
         textAlign: 'center',
-        lineHeight: 36,
+        lineHeight: 34,
         marginBottom: 24,
     },
     finalSubtext: {
-        fontSize: 18,
+        fontSize: 16,
+        fontFamily: fonts.regular,
         color: 'rgba(255,255,255,0.9)',
         textAlign: 'center',
-        lineHeight: 28,
+        lineHeight: 26,
         marginBottom: 32,
     },
     buttonContainer: {
@@ -578,27 +594,34 @@ const styles = StyleSheet.create({
         width: '100%',
     },
     primaryButton: {
-        backgroundColor: '#fff',
+        backgroundColor: 'rgba(255,255,255,0.95)',
         paddingVertical: 16,
         paddingHorizontal: 32,
         borderRadius: 30,
         alignItems: 'center',
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.2,
+        shadowRadius: 8,
+        elevation: 5,
     },
     buttonText: {
-        fontSize: 18,
-        fontWeight: '600',
-        color: '#7C3AED',
+        fontSize: 16,
+        fontFamily: fonts.semiBold,
+        color: '#1D1D1F',
     },
     navigationHint: {
         paddingVertical: 16,
         alignItems: 'center',
     },
     hintText: {
-        fontSize: 14,
+        fontSize: 13,
+        fontFamily: fonts.regular,
         color: 'rgba(255,255,255,0.6)',
     },
     loadingText: {
-        fontSize: 20,
+        fontSize: 18,
+        fontFamily: fonts.medium,
         color: '#fff',
         textAlign: 'center',
         marginTop: 16,

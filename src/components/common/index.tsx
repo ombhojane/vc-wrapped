@@ -1,4 +1,4 @@
-// Common UI Components
+// Common UI Components with Apple-style design and Poppins font
 import React from 'react';
 import {
   View,
@@ -9,7 +9,7 @@ import {
   ViewStyle,
 } from 'react-native';
 import Icon from '../Icon';
-import { colors, spacing, borderRadius, typography, shadow } from '../../theme';
+import { colors, spacing, borderRadius, typography, shadow, fonts } from '../../theme';
 
 // Stat Card Component
 interface StatCardProps {
@@ -31,7 +31,7 @@ export const StatCard: React.FC<StatCardProps> = ({
 }) => (
   <View style={[styles.statCard, style]}>
     {icon && (
-      <View style={[styles.iconContainer, { backgroundColor: `${iconColor}20` }]}>
+      <View style={[styles.iconContainer, { backgroundColor: `${iconColor}15` }]}>
         <Icon name={icon} size={24} color={iconColor} />
       </View>
     )}
@@ -156,14 +156,20 @@ const styles = StyleSheet.create({
     marginBottom: spacing.sm,
   },
   statValue: {
-    ...typography.h2,
+    fontSize: 24,
+    fontFamily: fonts.semiBold,
+    color: colors.textPrimary,
     marginBottom: spacing.xs,
   },
   statTitle: {
-    ...typography.bodySmall,
+    fontSize: 14,
+    fontFamily: fonts.regular,
+    color: colors.textSecondary,
   },
   statSubtitle: {
-    ...typography.caption,
+    fontSize: 12,
+    fontFamily: fonts.regular,
+    color: colors.textMuted,
     marginTop: spacing.xs,
   },
   heroStat: {
@@ -171,11 +177,13 @@ const styles = StyleSheet.create({
     paddingVertical: spacing.xl,
   },
   heroValue: {
-    ...typography.hero,
+    fontSize: 48,
+    fontFamily: fonts.bold,
     color: colors.primary,
   },
   heroLabel: {
-    ...typography.body,
+    fontSize: 16,
+    fontFamily: fonts.regular,
     color: colors.textSecondary,
     marginTop: spacing.sm,
   },
@@ -185,8 +193,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   avatarText: {
+    fontFamily: fonts.semiBold,
     color: colors.textPrimary,
-    fontWeight: '600',
   },
   loadingContainer: {
     flex: 1,
@@ -195,7 +203,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background,
   },
   loadingText: {
-    ...typography.body,
+    fontSize: 16,
+    fontFamily: fonts.regular,
     color: colors.textSecondary,
     marginTop: spacing.md,
   },
@@ -204,30 +213,37 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     padding: spacing.xl,
+    backgroundColor: colors.background,
   },
   emptyTitle: {
-    ...typography.h3,
+    fontSize: 18,
+    fontFamily: fonts.semiBold,
+    color: colors.textPrimary,
     marginTop: spacing.lg,
     textAlign: 'center',
   },
   emptyMessage: {
-    ...typography.bodySmall,
+    fontSize: 14,
+    fontFamily: fonts.regular,
+    color: colors.textSecondary,
     textAlign: 'center',
     marginTop: spacing.sm,
   },
   emptyButton: {
     backgroundColor: colors.primary,
     paddingHorizontal: spacing.lg,
-    paddingVertical: spacing.sm,
+    paddingVertical: spacing.sm + 4,
     borderRadius: borderRadius.full,
     marginTop: spacing.lg,
   },
   emptyButtonText: {
-    color: colors.textPrimary,
-    fontWeight: '600',
+    fontFamily: fonts.semiBold,
+    color: '#FFFFFF',
+    fontSize: 15,
   },
   sectionHeader: {
-    ...typography.caption,
+    fontSize: 12,
+    fontFamily: fonts.semiBold,
     color: colors.textMuted,
     textTransform: 'uppercase',
     letterSpacing: 1,
@@ -245,11 +261,11 @@ const styles = StyleSheet.create({
     backgroundColor: colors.primary,
   },
   pillText: {
-    ...typography.bodySmall,
+    fontSize: 14,
+    fontFamily: fonts.medium,
     color: colors.textSecondary,
   },
   pillTextActive: {
-    color: colors.textPrimary,
-    fontWeight: '600',
+    color: '#FFFFFF',
   },
 });
