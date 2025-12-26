@@ -45,3 +45,43 @@ export interface DateGroup {
 // Filter types
 export type CallTypeFilter = 'ALL' | 'INCOMING' | 'OUTGOING' | 'MISSED';
 export type SortOption = 'MOST_CALLED' | 'MOST_TIME' | 'RECENT';
+
+// Wrapped feature types
+export type CallPersonality =
+    | 'LISTENER_FIRST'
+    | 'CATCH_UP_KING'
+    | 'NIGHT_OWL'
+    | 'PROBLEM_SOLVER'
+    | 'CHECK_IN_FRIEND'
+    | 'SILENT_SUPPORTER';
+
+export interface TopContact {
+    name: string;
+    totalCalls: number;
+    totalDuration: number;
+    averageDuration: number;
+    mostlyAfter10PM: boolean;
+    quote: string;
+}
+
+export interface WrappedStats {
+    totalTalkTimeSeconds: number;
+    totalTalkTimeHours: number;
+    totalTalkTimeDays: number;
+    personality: CallPersonality;
+    personalityDescription: string;
+    topContacts: TopContact[];
+    peakHour: number;
+    peakMinute: number;
+    busiestDay: string;
+    callTypePercentages: {
+        work: number;
+        personal: number;
+        problemSolving: number;
+        fun: number;
+    };
+    missedCallsCount: number;
+    totalCallsCount: number;
+    averageCallDuration: number;
+    longCallsCount: number; // calls > 10 min
+}

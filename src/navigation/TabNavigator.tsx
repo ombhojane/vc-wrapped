@@ -1,4 +1,4 @@
-// Tab Navigator - Bottom navigation with 3 tabs
+// Tab Navigator - Bottom navigation with 4 tabs
 import React from 'react';
 import { Text, StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -6,6 +6,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import DashboardScreen from '../screens/DashboardScreen';
 import ContactsScreen from '../screens/ContactsScreen';
 import CallHistoryScreen from '../screens/CallHistoryScreen';
+import WrappedScreen from '../screens/WrappedScreen';
 import { colors } from '../theme';
 
 const Tab = createBottomTabNavigator();
@@ -53,6 +54,15 @@ const TabNavigator: React.FC = () => {
         options={{
           title: 'Dashboard',
           tabBarIcon: ({ focused }) => <TabIcon icon="📊" focused={focused} />,
+        }}
+      />
+      <Tab.Screen
+        name="Wrapped"
+        component={WrappedScreen}
+        options={{
+          title: 'Wrapped',
+          headerShown: false,
+          tabBarIcon: ({ focused }) => <TabIcon icon="🎁" focused={focused} />,
         }}
       />
       <Tab.Screen
