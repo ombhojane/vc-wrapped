@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>VC Wrapped: Time &amp; Mood</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#4b2bee",
+              "background-light": "#f6f6f8",
+              "background-dark": "#131022",
+            },
+            fontFamily: {
+              "display": ["Plus Jakarta Sans", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        /* Custom utilities for specific visual tweaks */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-white min-h-screen overflow-x-hidden selection:bg-primary selection:text-white">
+<div class="relative flex h-full min-h-screen w-full flex-col max-w-md mx-auto shadow-2xl overflow-hidden bg-background-dark">
+<!-- Story Progress Indicators -->
+<div class="flex w-full flex-row items-center justify-between gap-2 px-4 py-6 z-20">
+<div class="h-1 flex-1 rounded-full bg-white/20"></div>
+<div class="h-1 flex-1 rounded-full bg-white/20"></div>
+<div class="h-1 flex-1 rounded-full bg-white shadow-[0_0_10px_rgba(255,255,255,0.5)]"></div>
+<div class="h-1 flex-1 rounded-full bg-white/20"></div>
+<div class="h-1 flex-1 rounded-full bg-white/20"></div>
+</div>
+<!-- Main Content Container -->
+<div class="flex-1 flex flex-col items-center justify-start px-6 pt-2 pb-8 gap-8">
+<!-- Header -->
+<div class="text-center">
+<h2 class="text-white/60 tracking-wider text-sm font-semibold uppercase mb-1">2024 Wrapped</h2>
+<h1 class="text-white tracking-tight text-[28px] font-bold leading-tight">Timing is Everything</h1>
+</div>
+<!-- Card 1: Peak Time -->
+<div class="w-full glass-panel rounded-[2rem] p-6 flex flex-col items-center relative overflow-hidden group">
+<!-- Abstract Background Glow -->
+<div class="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-primary/10 to-transparent opacity-50 pointer-events-none"></div>
+<!-- Clock Visual -->
+<div class="relative w-48 h-48 rounded-full border-4 border-white/10 flex items-center justify-center mb-6 shadow-[0_0_30px_rgba(75,43,238,0.2)]">
+<!-- Clock Ticks -->
+<div class="absolute w-full h-full rounded-full border border-white/5"></div>
+<div class="absolute w-1 h-3 bg-white/30 top-2 rounded-full"></div>
+<div class="absolute w-1 h-3 bg-white/30 bottom-2 rounded-full"></div>
+<div class="absolute w-3 h-1 bg-white/30 left-2 rounded-full"></div>
+<div class="absolute w-3 h-1 bg-white/30 right-2 rounded-full"></div>
+<!-- Center Dot -->
+<div class="w-4 h-4 bg-primary rounded-full z-10 shadow-[0_0_10px_#4b2bee]"></div>
+<!-- Hour Hand (Pointing roughly to 11) -->
+<div class="absolute w-1.5 h-12 bg-white rounded-full origin-bottom bottom-1/2 left-[calc(50%-3px)] -rotate-[20deg] shadow-lg"></div>
+<!-- Minute Hand (Pointing roughly to 47) -->
+<div class="absolute w-1 h-16 bg-primary rounded-full origin-bottom bottom-1/2 left-[calc(50%-2px)] -rotate-[80deg] shadow-[0_0_10px_rgba(75,43,238,0.8)]"></div>
+</div>
+<div class="text-center z-10">
+<h3 class="text-5xl font-extrabold text-white tracking-tighter drop-shadow-md mb-2">11:47 <span class="text-2xl font-bold text-white/50">PM</span></h3>
+<p class="text-white/70 text-base font-medium leading-normal max-w-[200px] mx-auto">You did your best talking late at night.</p>
+</div>
+</div>
+<!-- Card 2: Busiest Day -->
+<div class="w-full flex flex-col gap-4">
+<div class="text-left px-2">
+<p class="text-white/50 text-sm font-medium uppercase tracking-widest">Weekly Rhythm</p>
+</div>
+<div class="glass-panel rounded-[2rem] p-6 w-full">
+<div class="flex items-end justify-between h-32 gap-2 mb-4">
+<!-- Monday -->
+<div class="w-full bg-white/10 rounded-t-full h-[30%] relative group"></div>
+<!-- Tuesday -->
+<div class="w-full bg-white/10 rounded-t-full h-[45%] relative group"></div>
+<!-- Wednesday -->
+<div class="w-full bg-white/10 rounded-t-full h-[60%] relative group"></div>
+<!-- Thursday (Primary) -->
+<div class="w-full bg-primary rounded-t-full h-[90%] relative shadow-[0_0_20px_rgba(75,43,238,0.6)] animate-pulse">
+<!-- Tooltip/Label for Thursday -->
+<div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-white text-background-dark text-xs font-bold px-2 py-1 rounded-full whitespace-nowrap">
+                                42 calls
+                            </div>
+</div>
+<!-- Friday -->
+<div class="w-full bg-white/10 rounded-t-full h-[70%] relative group"></div>
+<!-- Saturday -->
+<div class="w-full bg-white/10 rounded-t-full h-[85%] relative group"></div>
+<!-- Sunday -->
+<div class="w-full bg-white/10 rounded-t-full h-[40%] relative group"></div>
+</div>
+<div class="flex justify-between px-1 text-xs font-medium text-white/40 font-mono">
+<span>M</span>
+<span>T</span>
+<span>W</span>
+<span class="text-primary font-bold">T</span>
+<span>F</span>
+<span>S</span>
+<span>S</span>
+</div>
+<div class="mt-6 flex flex-row items-center justify-between">
+<div>
+<h3 class="text-2xl font-bold text-white mb-1">Thursday</h3>
+<p class="text-white/70 text-sm">Your marathon day.</p>
+</div>
+<div class="h-10 w-10 rounded-full bg-primary/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">calendar_month</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer / Share Action -->
+<div class="w-full px-6 pb-8 pt-2 z-20 bg-gradient-to-t from-background-dark via-background-dark to-transparent">
+<button class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-4 rounded-full shadow-[0_4px_20px_rgba(75,43,238,0.4)] transition-all active:scale-95 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">ios_share</span>
+                Share your stats
+            </button>
+</div>
+<!-- Decorative Background Image/Gradient at bottom -->
+<div class="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-primary/5 to-transparent pointer-events-none -z-0"></div>
+<!-- Noise Texture Overlay (Optional for 'Wrapped' grit) -->
+<div class="absolute inset-0 opacity-[0.03] pointer-events-none z-0" data-alt="Subtle noise texture overlay" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuB0h0nadjG_cC02cpHjmR_LpkmTlFbCd6ZG0LZFL9xpcROmRvqAzjQD0Cekzut-DrSPedfOC8jjDTWJx8XLoQu0HJUFocseB8aUJBu9bGg-oYbsbEtietOhqx6PZTgG5XOx6npo7kXCekgnzd7PlDIwN-XgCEde3bwSZvKJYMB4blMfl3K7CD34up4XnAnUWw3gZQzj4R5O9HZ21WpcuSVgFdfRQDdqQJBQz5nCFCWDpLgaR5EsahsTHkqiuPCBXlvpz44cadbkQJw');"></div>
+</div>
+</body></html>

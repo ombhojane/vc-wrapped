@@ -162,6 +162,95 @@ export const glassEffect = {
     borderColor: 'rgba(255, 255, 255, 0.2)',
 };
 
+// =====================================================
+// WRAPPED-SPECIFIC THEME (Premium Dark Mode)
+// =====================================================
+
+// Wrapped color palette (matching UI designs)
+export const wrappedColors = {
+    // Core colors
+    primary: '#4b2bee',
+    primaryLight: '#6d52f4',
+    background: '#131022',
+    surface: '#1e1b2e',
+
+    // Secondary accents
+    teal: '#22d3ee',
+    violet: '#a78bfa',
+    coral: '#f472b6',
+    indigo: '#7c66f5',
+
+    // Text
+    textPrimary: '#ffffff',
+    textSecondary: 'rgba(255, 255, 255, 0.7)',
+    textMuted: 'rgba(255, 255, 255, 0.5)',
+
+    // Progress bar
+    progressActive: '#ffffff',
+    progressInactive: 'rgba(255, 255, 255, 0.2)',
+
+    // Glow effects
+    primaryGlow: 'rgba(75, 43, 238, 0.4)',
+    ambientGlow1: 'rgba(75, 43, 238, 0.2)',
+    ambientGlow2: 'rgba(99, 102, 241, 0.15)',
+};
+
+// Wrapped typography
+export const wrappedTypography = {
+    hero: {
+        fontSize: 96,
+        fontWeight: '800' as const,
+        fontFamily: fonts.bold,
+        color: wrappedColors.textPrimary,
+    },
+    headline: {
+        fontSize: 32,
+        fontWeight: '700' as const,
+        fontFamily: fonts.bold,
+        color: wrappedColors.textPrimary,
+        letterSpacing: -0.5,
+    },
+    label: {
+        fontSize: 12,
+        fontWeight: '600' as const,
+        fontFamily: fonts.semiBold,
+        color: wrappedColors.primary,
+        textTransform: 'uppercase' as const,
+        letterSpacing: 2,
+    },
+    body: {
+        fontSize: 18,
+        fontWeight: '500' as const,
+        fontFamily: fonts.medium,
+        color: wrappedColors.textSecondary,
+        lineHeight: 28,
+    },
+    quote: {
+        fontSize: 26,
+        fontWeight: '600' as const,
+        fontFamily: fonts.semiBold,
+        color: wrappedColors.textPrimary,
+        fontStyle: 'italic' as const,
+        lineHeight: 38,
+    },
+};
+
+// Glassmorphism panel style for Wrapped
+export const wrappedGlassPanel = {
+    backgroundColor: 'rgba(255, 255, 255, 0.05)',
+    borderRadius: 24,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.1)',
+};
+
+// Wrapped story progress bar config
+export const wrappedStoryConfig = {
+    autoAdvanceMs: 12000, // 12 seconds per slide
+    progressHeight: 4,
+    progressGap: 6,
+    totalSlides: 10,
+};
+
 // Wrapped slide gradient colors (vibrant)
 export const wrappedGradients = [
     ['#667eea', '#764ba2'], // Purple blend

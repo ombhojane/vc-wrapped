@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>VC Wrapped: Opening Screen</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#4b2bee",
+              "background-light": "#f6f6f8",
+              "background-dark": "#131022",
+            },
+            fontFamily: {
+              "display": ["Plus Jakarta Sans", "Noto Sans", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+            animation: {
+                'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                'float': 'float 6s ease-in-out infinite',
+            },
+            keyframes: {
+                float: {
+                    '0%, 100%': { transform: 'translateY(0)' },
+                    '50%': { transform: 'translateY(-20px)' },
+                }
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        /* Custom scrollbar hide for cleaner mobile view */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-white antialiased selection:bg-primary selection:text-white overflow-hidden">
+<div class="relative flex h-screen w-full flex-col overflow-hidden max-w-md mx-auto shadow-2xl bg-background-light dark:bg-background-dark">
+<!-- Background Ambient Effects -->
+<div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
+<div class="absolute top-[-10%] left-[-10%] w-[60%] h-[40%] bg-primary/20 rounded-full blur-[100px] animate-pulse-slow"></div>
+<div class="absolute bottom-[-10%] right-[-10%] w-[70%] h-[50%] bg-primary/10 rounded-full blur-[120px] animate-pulse-slow" style="animation-delay: 2s;"></div>
+</div>
+<!-- Top App Bar -->
+<div class="relative z-20 flex items-center justify-between p-6 pt-8 w-full">
+<div class="flex items-center gap-2 opacity-90">
+<span class="material-symbols-outlined text-primary text-[28px]">graphic_eq</span>
+<span class="text-sm font-bold tracking-wider uppercase text-slate-500 dark:text-slate-400">VC Wrapped</span>
+</div>
+<!-- Optional User Avatar or Menu -->
+<div class="w-8 h-8 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center">
+<span class="material-symbols-outlined text-xs text-slate-500 dark:text-slate-400">person</span>
+</div>
+</div>
+<!-- Main Content Area -->
+<div class="relative z-10 flex flex-1 flex-col items-center justify-center px-6 w-full text-center">
+<!-- Hero Visual -->
+<div class="relative w-full max-w-[320px] aspect-square mb-8 animate-float">
+<!-- Inner Glow for the image -->
+<div class="absolute inset-0 bg-primary/30 blur-[60px] rounded-full scale-75"></div>
+<!-- Main Abstract Image -->
+<div class="relative w-full h-full rounded-full overflow-hidden flex items-center justify-center">
+<img alt="Abstract flowing liquid purple and blue gradient shapes representing voice sound waves in a dark void" class="w-full h-full object-cover opacity-90 mix-blend-screen" data-alt="Abstract flowing liquid purple and blue gradient shapes representing voice sound waves in a dark void" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAcGX_ZJYuR3P-pZMG_I7rGsTlp9Yq0O73NJhUUqZ2Or7KbnGTJ2rIS4QCnEhaFeTQ7GqFIzjWxZ89VgA1MPOnkV1qk7QCa2oMYJms0TGRaZhTpDmoyYNe9hEmEQZO5a4fxH8MhlbQ7ih4nGp7a_Mks3IKvkLU2MbOTuGhZ7YoxkCrTQMYiFHAoVc6FVKbueHAYFz96pKaJGeb7FN4XaK5G-g0ElU7m7CWcbbNjN6U-8X7CsHAulR4JS3zGucC6Rvm0hGbZAawWwD4"/>
+</div>
+<!-- Floating Decorative Elements -->
+<div class="absolute -right-4 top-10 w-12 h-12 bg-white/10 backdrop-blur-md rounded-full border border-white/20 flex items-center justify-center animate-bounce shadow-lg shadow-primary/20" style="animation-duration: 3s;">
+<span class="material-symbols-outlined text-white text-xl">call</span>
+</div>
+<div class="absolute -left-2 bottom-12 w-10 h-10 bg-primary/20 backdrop-blur-md rounded-full border border-primary/30 flex items-center justify-center animate-bounce shadow-lg" style="animation-duration: 4.5s; animation-delay: 1s;">
+<span class="material-symbols-outlined text-primary text-lg">mic</span>
+</div>
+</div>
+<!-- Typography -->
+<div class="flex flex-col gap-4 max-w-sm mx-auto">
+<h1 class="text-white tracking-tight text-4xl md:text-5xl font-extrabold leading-[1.1]">
+                    This year, you made your <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-400">voice count.</span>
+</h1>
+<p class="text-slate-400 text-lg font-medium leading-relaxed px-2">
+                    Here's what your calls say about your life in 2025.
+                </p>
+</div>
+</div>
+<!-- Bottom Action Area -->
+<div class="relative z-20 w-full px-6 pb-12 pt-6">
+<button class="group relative w-full flex items-center justify-center gap-3 overflow-hidden rounded-full h-14 bg-primary text-white text-lg font-bold leading-normal tracking-wide shadow-[0_0_40px_-10px_rgba(75,43,238,0.5)] transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]">
+<!-- Button Glow Effect on Hover -->
+<div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-500 rounded-full"></div>
+<span class="relative z-10">Start My Voice Wrapped</span>
+<span class="material-symbols-outlined relative z-10 text-[20px] transition-transform group-hover:translate-x-1">arrow_forward</span>
+</button>
+<p class="mt-4 text-center text-[10px] uppercase tracking-widest text-slate-600 dark:text-slate-600 font-bold">
+                Powered by VC Analytics
+            </p>
+</div>
+</div>
+</body></html>

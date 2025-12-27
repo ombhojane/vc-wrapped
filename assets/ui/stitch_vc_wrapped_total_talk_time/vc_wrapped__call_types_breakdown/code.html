@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>VC Wrapped: Call Types Breakdown</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#4b2bee",
+                        "primary-light": "#6d52f4",
+                        "secondary-teal": "#22d3ee",
+                        "secondary-violet": "#a78bfa",
+                        "secondary-coral": "#f472b6",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#131022",
+                        "surface-dark": "#1e1b2e",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+        /* Custom Donut Chart CSS */
+        .donut-chart {
+            position: relative;
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            background: conic-gradient(
+                #4b2bee 0% 41%, 
+                #22d3ee 41% 79%, 
+                #a78bfa 79% 91%, 
+                #f472b6 91% 100%
+            );
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .donut-center {
+            width: 180px;
+            height: 180px;
+            background-color: #131022; /* Matches background-dark */
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+
+        /* Subtle glow effect for the chart */
+        .chart-glow {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            box-shadow: 0 0 60px rgba(75, 43, 238, 0.2);
+            pointer-events: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-white overflow-hidden selection:bg-primary selection:text-white">
+<div class="relative flex h-screen w-full flex-col max-w-md mx-auto overflow-hidden bg-background-light dark:bg-background-dark">
+<!-- Background Ambient Gradients -->
+<div class="absolute top-[-10%] left-[-20%] w-[300px] h-[300px] bg-primary/20 rounded-full blur-[100px] pointer-events-none"></div>
+<div class="absolute bottom-[-10%] right-[-20%] w-[300px] h-[300px] bg-secondary-teal/10 rounded-full blur-[100px] pointer-events-none"></div>
+<!-- Story Progress Indicators -->
+<div class="flex w-full flex-row items-center justify-center gap-2 px-4 py-6 z-20">
+<div class="h-1.5 flex-1 rounded-full bg-slate-200 dark:bg-slate-700"></div>
+<div class="h-1.5 flex-1 rounded-full bg-slate-200 dark:bg-slate-700"></div>
+<div class="h-1.5 flex-1 rounded-full bg-slate-200 dark:bg-slate-700"></div>
+<div class="h-1.5 flex-1 rounded-full bg-primary"></div> <!-- Active -->
+<div class="h-1.5 flex-1 rounded-full bg-slate-200 dark:bg-slate-700"></div>
+<div class="h-1.5 flex-1 rounded-full bg-slate-200 dark:bg-slate-700"></div>
+</div>
+<!-- Main Scrollable Content Area -->
+<div class="flex-1 flex flex-col items-center justify-start px-5 pt-2 pb-8 overflow-y-auto scrollbar-hide z-10">
+<!-- Header Text -->
+<div class="w-full text-center mb-8 animate-fade-in-down">
+<h1 class="text-3xl font-bold tracking-tight mb-2">The Breakdown</h1>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-medium uppercase tracking-wider">Your Year in Calls</p>
+</div>
+<!-- Visualization Section -->
+<div class="flex flex-col items-center justify-center w-full mb-10">
+<div class="relative">
+<div class="chart-glow"></div>
+<!-- Donut Chart -->
+<div class="donut-chart shadow-2xl">
+<!-- Inner Circle Content -->
+<div class="donut-center bg-background-light dark:bg-background-dark shadow-inner">
+<span class="text-4xl font-extrabold text-primary">2,480</span>
+<span class="text-xs text-slate-500 dark:text-slate-400 font-medium mt-1 uppercase tracking-wide">Total Minutes</span>
+</div>
+</div>
+<!-- Floating Labels (Decorations) -->
+<div class="absolute -top-4 -right-4 bg-surface-dark/90 backdrop-blur border border-white/10 px-3 py-1.5 rounded-lg shadow-lg rotate-6">
+<span class="text-xs font-bold text-white">Top 1% Talker!</span>
+</div>
+</div>
+</div>
+<!-- Stats List / Legend -->
+<div class="w-full flex flex-col gap-3">
+<!-- Item 1: Work & Hustle -->
+<div class="group flex items-center justify-between p-4 rounded-xl bg-white dark:bg-surface-dark border border-slate-100 dark:border-white/5 shadow-sm transition-transform active:scale-[0.98]">
+<div class="flex items-center gap-4">
+<div class="h-10 w-10 rounded-full bg-primary/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[20px]">work</span>
+</div>
+<div class="flex flex-col">
+<span class="text-sm font-semibold text-slate-800 dark:text-white">Work &amp; Hustle</span>
+<div class="flex items-center gap-2">
+<div class="h-2 w-2 rounded-full bg-primary"></div>
+<span class="text-xs text-slate-500 dark:text-slate-400">Professional</span>
+</div>
+</div>
+</div>
+<div class="text-xl font-bold text-slate-900 dark:text-white">41%</div>
+</div>
+<!-- Item 2: Personal -->
+<div class="group flex items-center justify-between p-4 rounded-xl bg-white dark:bg-surface-dark border border-slate-100 dark:border-white/5 shadow-sm transition-transform active:scale-[0.98]">
+<div class="flex items-center gap-4">
+<div class="h-10 w-10 rounded-full bg-secondary-teal/20 flex items-center justify-center text-secondary-teal">
+<span class="material-symbols-outlined text-[20px]">favorite</span>
+</div>
+<div class="flex flex-col">
+<span class="text-sm font-semibold text-slate-800 dark:text-white">Personal</span>
+<div class="flex items-center gap-2">
+<div class="h-2 w-2 rounded-full bg-secondary-teal"></div>
+<span class="text-xs text-slate-500 dark:text-slate-400">Family &amp; Friends</span>
+</div>
+</div>
+</div>
+<div class="text-xl font-bold text-slate-900 dark:text-white">38%</div>
+</div>
+<!-- Item 3: Problem-Solving -->
+<div class="group flex items-center justify-between p-4 rounded-xl bg-white dark:bg-surface-dark border border-slate-100 dark:border-white/5 shadow-sm transition-transform active:scale-[0.98]">
+<div class="flex items-center gap-4">
+<div class="h-10 w-10 rounded-full bg-secondary-violet/20 flex items-center justify-center text-secondary-violet">
+<span class="material-symbols-outlined text-[20px]">psychology</span>
+</div>
+<div class="flex flex-col">
+<span class="text-sm font-semibold text-slate-800 dark:text-white">Problem-Solving</span>
+<div class="flex items-center gap-2">
+<div class="h-2 w-2 rounded-full bg-secondary-violet"></div>
+<span class="text-xs text-slate-500 dark:text-slate-400">Support &amp; Logistics</span>
+</div>
+</div>
+</div>
+<div class="text-xl font-bold text-slate-900 dark:text-white">12%</div>
+</div>
+<!-- Item 4: Random & Fun -->
+<div class="group flex items-center justify-between p-4 rounded-xl bg-white dark:bg-surface-dark border border-slate-100 dark:border-white/5 shadow-sm transition-transform active:scale-[0.98]">
+<div class="flex items-center gap-4">
+<div class="h-10 w-10 rounded-full bg-secondary-coral/20 flex items-center justify-center text-secondary-coral">
+<span class="material-symbols-outlined text-[20px]">celebration</span>
+</div>
+<div class="flex flex-col">
+<span class="text-sm font-semibold text-slate-800 dark:text-white">Random &amp; Fun</span>
+<div class="flex items-center gap-2">
+<div class="h-2 w-2 rounded-full bg-secondary-coral"></div>
+<span class="text-xs text-slate-500 dark:text-slate-400">Just because</span>
+</div>
+</div>
+</div>
+<div class="text-xl font-bold text-slate-900 dark:text-white">9%</div>
+</div>
+</div>
+</div>
+<!-- Footer / Conclusion Section -->
+<div class="w-full px-6 pb-8 pt-4 z-20 bg-gradient-to-t from-background-light via-background-light to-transparent dark:from-background-dark dark:via-background-dark dark:to-transparent">
+<h2 class="text-center text-2xl font-bold leading-tight bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent dark:from-white dark:via-slate-200 dark:to-slate-400 mb-6 drop-shadow-sm">
+                You didn’t just talk.<br/>You balanced life.
+            </h2>
+<div class="flex gap-3">
+<button class="flex-1 flex items-center justify-center gap-2 bg-primary hover:bg-primary-light text-white font-bold py-4 px-6 rounded-full transition-colors shadow-lg shadow-primary/30">
+<span class="material-symbols-outlined text-[20px]">ios_share</span>
+                    Share Story
+                </button>
+<button class="flex items-center justify-center w-14 h-14 bg-white/10 hover:bg-white/20 dark:bg-white/5 dark:hover:bg-white/10 backdrop-blur-md rounded-full transition-colors border border-white/10">
+<span class="material-symbols-outlined text-white">download</span>
+</button>
+</div>
+</div>
+</div>
+</body></html>

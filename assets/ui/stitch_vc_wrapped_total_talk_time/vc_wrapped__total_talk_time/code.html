@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>VC Wrapped: Total Talk Time</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#4b2bee",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#131022",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+                    animation: {
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .text-gradient {
+            background: linear-gradient(180deg, #FFFFFF 0%, rgba(255, 255, 255, 0.7) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .glow-effect {
+            box-shadow: 0 0 60px -15px rgba(75, 43, 238, 0.5);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display antialiased overflow-hidden">
+<div class="relative flex h-screen w-full flex-col overflow-hidden max-w-md mx-auto shadow-2xl bg-background-dark">
+<!-- Ambient Background Glows -->
+<div class="absolute top-[-10%] left-[-20%] w-[400px] h-[400px] bg-primary/20 rounded-full blur-[100px] pointer-events-none"></div>
+<div class="absolute bottom-[-10%] right-[-20%] w-[300px] h-[300px] bg-primary/10 rounded-full blur-[80px] pointer-events-none"></div>
+<!-- Waveform decorative elements (CSS Based) -->
+<div class="absolute top-1/2 left-0 right-0 -translate-y-1/2 flex items-center justify-center opacity-10 pointer-events-none gap-2">
+<div class="h-32 w-2 bg-primary rounded-full animate-pulse"></div>
+<div class="h-48 w-2 bg-primary rounded-full animate-pulse delay-75"></div>
+<div class="h-24 w-2 bg-primary rounded-full animate-pulse delay-100"></div>
+<div class="h-64 w-2 bg-primary rounded-full animate-pulse delay-150"></div>
+<div class="h-32 w-2 bg-primary rounded-full animate-pulse delay-200"></div>
+<div class="h-56 w-2 bg-primary rounded-full animate-pulse delay-100"></div>
+<div class="h-40 w-2 bg-primary rounded-full animate-pulse delay-75"></div>
+</div>
+<!-- Story Progress Indicators -->
+<div class="z-20 flex w-full flex-row items-center justify-center gap-1.5 px-4 pt-4 pb-2">
+<div class="h-1 flex-1 rounded-full bg-white/30"></div>
+<div class="h-1 flex-1 rounded-full bg-white"></div> <!-- Active -->
+<div class="h-1 flex-1 rounded-full bg-white/30"></div>
+<div class="h-1 flex-1 rounded-full bg-white/30"></div>
+<div class="h-1 flex-1 rounded-full bg-white/30"></div>
+<div class="h-1 flex-1 rounded-full bg-white/30"></div>
+</div>
+<!-- Header -->
+<div class="z-20 flex w-full items-center justify-between px-5 pt-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-white/80 text-[20px]">graphic_eq</span>
+<span class="text-white/80 text-sm font-bold tracking-wide">2024 Wrapped</span>
+</div>
+<button class="text-white/80 hover:text-white transition-colors">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<!-- Main Content Centered -->
+<div class="z-10 flex-1 flex flex-col items-center justify-center w-full px-6 gap-8">
+<!-- Visual Anchor: Microphone -->
+<div class="relative group">
+<div class="absolute inset-0 bg-primary/40 rounded-full blur-xl animate-pulse-slow"></div>
+<div class="relative h-24 w-24 rounded-full bg-gradient-to-br from-[#2a2640] to-background-dark border border-primary/30 flex items-center justify-center glow-effect shadow-xl">
+<span class="material-symbols-outlined text-primary text-[40px] drop-shadow-[0_0_10px_rgba(75,43,238,0.8)]">mic</span>
+</div>
+<!-- Decorative floating particles -->
+<div class="absolute -top-2 -right-2 h-3 w-3 rounded-full bg-primary animate-ping opacity-75"></div>
+</div>
+<!-- Stats Block -->
+<div class="flex flex-col items-center text-center space-y-1">
+<p class="text-primary/80 text-xs font-bold tracking-[0.2em] uppercase mb-2">Total Talk Time</p>
+<h1 class="text-[96px] leading-[0.9] font-extrabold text-gradient drop-shadow-2xl">
+                    412
+                </h1>
+<h2 class="text-3xl font-bold text-white/40 tracking-[0.2em]">HOURS</h2>
+</div>
+<!-- Insight Pill -->
+<div class="mt-4 transform hover:scale-105 transition-transform duration-300">
+<div class="bg-gradient-to-r from-primary to-[#6d4aff] p-[1px] rounded-full">
+<div class="bg-[#1a162e] rounded-full px-6 py-3 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-sm">calendar_month</span>
+<p class="text-white text-sm font-medium">That’s <span class="text-primary font-bold">17 full days</span> of conversations.</p>
+</div>
+</div>
+</div>
+<!-- Narrative Text -->
+<div class="max-w-[280px] text-center mt-6">
+<p class="text-white/60 text-lg font-medium leading-relaxed">
+                    Some calls were short. <br/>
+<span class="text-white">Some changed everything.</span>
+</p>
+</div>
+</div>
+<!-- Footer Actions -->
+<div class="z-20 w-full p-8 pb-10 flex flex-col gap-4 items-center">
+<button class="w-full max-w-[200px] bg-white hover:bg-white/90 text-background-dark h-14 rounded-full font-bold text-base flex items-center justify-center gap-2 transition-all shadow-[0_0_20px_rgba(255,255,255,0.2)]">
+                Share this stat
+                <span class="material-symbols-outlined text-[20px]">ios_share</span>
+</button>
+<div class="animate-bounce mt-2 text-white/30">
+<span class="material-symbols-outlined">keyboard_arrow_down</span>
+</div>
+</div>
+</div>
+</body></html>

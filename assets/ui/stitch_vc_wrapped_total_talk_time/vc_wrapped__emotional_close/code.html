@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>VC Wrapped: Emotional Close</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Noto+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#4b2bee",
+              "background-light": "#f6f6f8",
+              "background-dark": "#131022",
+            },
+            fontFamily: {
+              "display": ["Plus Jakarta Sans", "Noto Sans", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+            animation: {
+                'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            }
+          },
+        },
+      }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display">
+<div class="relative flex h-full min-h-screen w-full flex-col bg-background-light dark:bg-background-dark group/design-root overflow-x-hidden">
+<!-- Ambient Background Glow -->
+<div class="absolute top-[20%] left-1/2 -translate-x-1/2 w-[300px] h-[300px] bg-primary/20 dark:bg-primary/30 rounded-full blur-[80px] pointer-events-none animate-pulse-slow"></div>
+<!-- Header / Close Button -->
+<div class="flex items-center p-4 pb-2 justify-between relative z-20">
+<div class="flex size-12 shrink-0 items-center justify-center">
+<!-- Empty left side or could be logo -->
+</div>
+<!-- Title mostly hidden for immersion, but structurally present -->
+<h2 class="text-gray-900 dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center sr-only">Emotional Close</h2>
+<button class="text-gray-900 dark:text-white flex size-12 shrink-0 items-center justify-center rounded-full hover:bg-black/5 dark:hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined text-[28px]">close</span>
+</button>
+</div>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col justify-center items-center px-6 relative z-10 w-full max-w-md mx-auto">
+<!-- Central Visual: Abstract Voice Representation -->
+<div class="mb-10 relative">
+<!-- Outer ring glow -->
+<div class="absolute inset-0 bg-primary/40 rounded-full blur-xl animate-pulse"></div>
+<!-- Inner image container -->
+<div class="relative w-40 h-40 rounded-full overflow-hidden border-4 border-white/5 shadow-2xl shadow-primary/40 bg-gradient-to-br from-[#2a2a3e] to-[#131022]">
+<div class="absolute inset-0 bg-cover bg-center opacity-80 mix-blend-screen" data-alt="Abstract flowing liquid gradients in deep purple and blue representing sound waves" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC4qZ9YQrmCDafGiQy1mMqLio_itHRwRgFnFGK_YH8Zbel4e-WM39GRswluy58uIhRAWm3h6Xn7iG1gpKrkNLIjR7JKg1f_8pHtnDFYRKfhHIJWTnNgZYB8b2VnVinLEePBW4t3vTL3TYfBZuxe3VjsgHSdlKb7Nst2KqHNisdw8PLyL4_rWIVIsN_HWB9JIXYTGtGmGJsJAHc7EVE6sEnLrlFP9pKkizAOv4dhCSngz-B8I4lybymM__iQpZZ2PIm82Xrs0ZLXVxk");'>
+</div>
+</div>
+</div>
+<!-- Headline -->
+<h1 class="text-gray-900 dark:text-white tracking-tight text-[32px] md:text-[36px] font-bold leading-[1.15] text-center pb-6">
+                Your voice carried <span class="text-primary dark:text-[#7c66f5]">love</span>, <span class="text-primary/80 dark:text-[#7c66f5]/90">stress</span>, <span class="text-primary/70 dark:text-[#7c66f5]/80">growth</span>, and <span class="text-primary/90 dark:text-white">hope</span> this year.
+            </h1>
+<!-- Body Text -->
+<p class="text-gray-600 dark:text-gray-400 text-lg font-normal leading-relaxed text-center px-2">
+                Wherever you’re headed next — keep calling the people who matter.
+            </p>
+</div>
+<!-- Action Area (Bottom Pinned) -->
+<div class="w-full max-w-md mx-auto p-6 pb-8 flex flex-col gap-3 relative z-20">
+<!-- Primary Action -->
+<button class="w-full flex cursor-pointer items-center justify-center overflow-hidden rounded-full h-14 px-5 bg-primary hover:bg-primary/90 transition-all active:scale-[0.98] text-white text-lg font-bold leading-normal tracking-[0.015em] shadow-lg shadow-primary/25">
+<span class="truncate">Save My Wrapped</span>
+<span class="material-symbols-outlined ml-2 text-[20px]">download</span>
+</button>
+<!-- Secondary Action -->
+<button class="w-full flex cursor-pointer items-center justify-center overflow-hidden rounded-full h-12 px-5 bg-transparent hover:bg-white/5 transition-colors text-gray-900 dark:text-white/80 text-base font-medium leading-normal tracking-[0.015em]">
+<span class="truncate">Replay Highlights</span>
+<span class="material-symbols-outlined ml-2 text-[20px]">replay</span>
+</button>
+<!-- Footer Branding -->
+<div class="mt-4 flex justify-center items-center gap-2 opacity-40">
+<span class="material-symbols-outlined text-[16px] text-gray-900 dark:text-white">graphic_eq</span>
+<span class="text-xs font-semibold tracking-widest uppercase text-gray-900 dark:text-white">VC Wrapped 2024</span>
+</div>
+</div>
+</div>
+</body></html>

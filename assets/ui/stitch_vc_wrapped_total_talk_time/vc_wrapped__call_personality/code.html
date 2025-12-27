@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>VC Wrapped: Call Personality</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#4b2bee",
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#131022",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display antialiased overflow-hidden">
+<!-- Mobile Container -->
+<div class="relative mx-auto flex h-screen w-full max-w-md flex-col overflow-hidden bg-background-light dark:bg-background-dark shadow-2xl">
+<!-- Background Gradient Effects -->
+<div class="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
+<!-- Deep purple spotlight from top-center -->
+<div class="absolute -top-32 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-primary/20 rounded-full blur-[100px] opacity-60"></div>
+<!-- Secondary glow at bottom -->
+<div class="absolute -bottom-20 right-0 w-[300px] h-[300px] bg-indigo-600/10 rounded-full blur-[80px]"></div>
+</div>
+<!-- Content Wrapper -->
+<div class="relative z-10 flex flex-col h-full px-5 py-4">
+<!-- Progress Indicators -->
+<div class="flex w-full flex-row items-center justify-center gap-2 pt-2 pb-6">
+<div class="h-1.5 flex-1 rounded-full bg-white/20"></div>
+<div class="h-1.5 flex-1 rounded-full bg-white/20"></div>
+<div class="h-1.5 flex-1 rounded-full bg-white"></div>
+<div class="h-1.5 flex-1 rounded-full bg-white/20"></div>
+<div class="h-1.5 flex-1 rounded-full bg-white/20"></div>
+</div>
+<!-- Top Header -->
+<div class="flex items-center justify-between pb-4">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-2xl">graphic_eq</span>
+<h2 class="text-black dark:text-white text-sm font-bold uppercase tracking-wider opacity-80">2023 Wrapped</h2>
+</div>
+<button class="flex items-center justify-center h-10 w-10 rounded-full bg-white/5 hover:bg-white/10 transition-colors text-black dark:text-white">
+<span class="material-symbols-outlined" style="font-size: 20px;">close</span>
+</button>
+</div>
+<!-- Main Scrollable Content Area -->
+<div class="flex-1 flex flex-col items-center justify-center mt-4">
+<!-- Chip -->
+<div class="mb-8 animate-fade-in-up">
+<div class="inline-flex h-9 items-center justify-center gap-x-2 rounded-full border border-primary/30 bg-primary/10 pl-4 pr-5 backdrop-blur-sm">
+<span class="material-symbols-outlined text-primary text-lg">psychology</span>
+<p class="text-primary dark:text-primary-300 text-sm font-bold tracking-wide">Your Call Persona</p>
+</div>
+</div>
+<!-- Central Visual / Illustration -->
+<div class="relative w-full aspect-square max-w-[320px] mb-8 group">
+<!-- Glowing rings background -->
+<div class="absolute inset-0 m-auto w-3/4 h-3/4 rounded-full border border-primary/30 opacity-50 scale-100 animate-pulse"></div>
+<div class="absolute inset-0 m-auto w-full h-full rounded-full border border-primary/10 opacity-30 scale-110"></div>
+<!-- Main Image container -->
+<div class="relative w-full h-full rounded-full overflow-hidden shadow-[0_0_50px_rgba(75,43,238,0.25)] border-4 border-white/5">
+<div class="w-full h-full bg-center bg-cover bg-no-repeat transform transition-transform duration-700 hover:scale-105" data-alt="Abstract 3D render of a glowing digital brain or network connections in purple and blue" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBagSJwglnO7MYM1hl_qOrakLVo9I-Yz1TAJ8ucNIF7Kv5BlDXvaJ1jBJ3f7aXr1HBlJW8M-5Bz_RFltGu4t8lVOBbpn2ZTi2q2a5LHzInLB5nnJ0OZNi-_f-hBHv5WOGlmLRTCmx2rYOeklRKtcquuocSxkMH4NsFs3VnIahTRSR1DzqO7Zgh4JsipHpNtaLWIESKt0Mcsuwz-pGOx8oovAfTA0uV8EsJ8WZA0wlN-J5Y774C2FhKmHQTnOVnxtdWBfpPHui5wHzc');">
+<!-- Overlay gradient to ensure text readability if image is bright -->
+<div class="absolute inset-0 bg-gradient-to-t from-background-dark/80 via-transparent to-transparent"></div>
+</div>
+</div>
+<!-- Floating Icon Badge -->
+<div class="absolute -bottom-2 right-10 bg-background-dark border border-white/10 p-3 rounded-2xl shadow-xl transform rotate-6">
+<span class="material-symbols-outlined text-3xl text-primary block">hearing</span>
+</div>
+</div>
+<!-- Text Content -->
+<div class="text-center space-y-5 px-2">
+<h1 class="text-black dark:text-white text-4xl font-extrabold leading-tight tracking-tight">
+                        You're a <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-400">Listener First</span>
+</h1>
+<p class="text-gray-600 dark:text-gray-300 text-lg font-medium leading-relaxed max-w-[340px] mx-auto">
+                        You talk less, but stay longer. Most of your calls go beyond 10 minutes. People don’t call you for updates — <span class="text-black dark:text-white font-bold">they call you to think.</span>
+</p>
+</div>
+</div>
+<!-- Footer Actions -->
+<div class="pt-8 pb-6 w-full flex flex-col gap-4">
+<button class="relative w-full group overflow-hidden rounded-full bg-primary p-4 transition-all hover:scale-[1.02] active:scale-[0.98]">
+<div class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform -skew-x-12 translate-x-[-100%] group-hover:translate-x-[100%]"></div>
+<span class="flex items-center justify-center gap-2 text-white font-bold text-lg">
+                        Share this Persona
+                        <span class="material-symbols-outlined text-xl">ios_share</span>
+</span>
+</button>
+<button class="text-gray-500 dark:text-gray-400 text-sm font-semibold hover:text-black dark:hover:text-white transition-colors">
+                    View detailed stats
+                </button>
+</div>
+</div>
+</div>
+</body></html>
