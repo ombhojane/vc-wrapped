@@ -16,7 +16,7 @@
     "@react-navigation/native": "^7.1.26",
     "@supabase/supabase-js": "^2.89.0",
     "react": "19.2.0",
-    "react-native": "0.83.1",
+    "react-native": "^0.83.1",
     "react-native-device-info": "^15.0.1",
     "react-native-gesture-handler": "^2.30.0",
     "react-native-linear-gradient": "^2.8.3",
