@@ -1,21 +1,20 @@
 // PersonalitySlide - "You're a Listener First"
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { wrappedColors, fonts, wrappedGlassPanel } from '../../../theme';
+import { fonts } from '../../../theme';
 import { WrappedStats } from '../../../types';
-import { GlassCard } from '../../../components/wrapped';
 
 interface SlideProps {
     stats: WrappedStats;
 }
 
-const PERSONALITY_DATA: Record<string, { title: string; emoji: string }> = {
-    'LISTENER_FIRST': { title: 'Listener First', emoji: '👂' },
-    'CATCH_UP_KING': { title: 'The Catch-Up King', emoji: '👑' },
-    'NIGHT_OWL': { title: 'The Night Owl', emoji: '🦉' },
-    'PROBLEM_SOLVER': { title: 'The Problem Solver', emoji: '🧠' },
-    'CHECK_IN_FRIEND': { title: 'The Check-In Friend', emoji: '💛' },
-    'SILENT_SUPPORTER': { title: 'The Silent Supporter', emoji: '🤝' },
+const PERSONALITY_DATA: Record<string, { title: string }> = {
+    'LISTENER_FIRST': { title: 'Listener First' },
+    'CATCH_UP_KING': { title: 'The Catch-Up King' },
+    'NIGHT_OWL': { title: 'The Night Owl' },
+    'PROBLEM_SOLVER': { title: 'The Problem Solver' },
+    'CHECK_IN_FRIEND': { title: 'The Check-In Friend' },
+    'SILENT_SUPPORTER': { title: 'The Silent Supporter' },
 };
 
 const PersonalitySlide: React.FC<SlideProps> = ({ stats }) => {
@@ -23,45 +22,29 @@ const PersonalitySlide: React.FC<SlideProps> = ({ stats }) => {
 
     return (
         <View style={styles.container}>
-            {/* Chip Label */}
-            <View style={styles.chip}>
-                <Text style={styles.chipIcon}>🧠</Text>
-                <Text style={styles.chipText}>Your Call Persona</Text>
-            </View>
-
-            {/* Hero Visual */}
-            <View style={styles.heroContainer}>
-                <View style={styles.ringOuter} />
-                <View style={styles.ringInner} />
-                <View style={styles.heroCircle}>
-                    <Text style={styles.heroEmoji}>{personality.emoji}</Text>
+            {/* Content positioned in upper portion */}
+            <View style={styles.contentSection}>
+                {/* Title - Two Lines */}
+                <View style={styles.titleContainer}>
+                    <Text style={styles.titleLabel}>You're a</Text>
+                    <Text style={styles.titlePersona}>{personality.title}</Text>
                 </View>
-                <View style={styles.floatingBadge}>
-                    <Text style={styles.floatingBadgeIcon}>👂</Text>
-                </View>
+
+                {/* Stats Card */}
+                {stats.longCallsCount > 0 && (
+                    <View style={styles.statsCard}>
+                        <View style={styles.statRow}>
+                            <Text style={styles.statNumber}>{stats.longCallsCount}</Text>
+                            <Text style={styles.statText}>calls went beyond 10 minutes</Text>
+                        </View>
+                        <View style={styles.divider} />
+                        <View style={styles.statRow}>
+                            <Text style={styles.statNumber}>{stats.totalCallsCount}</Text>
+                            <Text style={styles.statText}>total calls this year</Text>
+                        </View>
+                    </View>
+                )}
             </View>
-
-            {/* Title */}
-            <View style={styles.textContainer}>
-                <Text style={styles.headline}>
-                    You're a{' '}
-                    <Text style={styles.headlineAccent}>{personality.title}</Text>
-                </Text>
-            </View>
-
-            {/* Description */}
-            <Text style={styles.description}>
-                {stats.personalityDescription}
-            </Text>
-
-            {/* Stats Detail */}
-            {stats.longCallsCount > 0 && (
-                <GlassCard style={styles.statsCard}>
-                    <Text style={styles.statsText}>
-                        <Text style={styles.statsHighlight}>{stats.longCallsCount}</Text> of your calls went beyond 10 minutes
-                    </Text>
-                </GlassCard>
-            )}
         </View>
     );
 };
@@ -69,121 +52,61 @@ const PersonalitySlide: React.FC<SlideProps> = ({ stats }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+    },
+    contentSection: {
+        flex: 0.6, // Takes upper 60% of screen
         justifyContent: 'center',
         alignItems: 'center',
+        paddingTop: 40,
     },
-    chip: {
-        flexDirection: 'row',
+    titleContainer: {
         alignItems: 'center',
-        gap: 8,
-        paddingVertical: 8,
-        paddingHorizontal: 16,
-        borderRadius: 20,
-        backgroundColor: 'rgba(75, 43, 238, 0.15)',
-        borderWidth: 1,
-        borderColor: 'rgba(75, 43, 238, 0.3)',
-        marginBottom: 32,
+        marginBottom: 48,
     },
-    chipIcon: {
-        fontSize: 14,
-    },
-    chipText: {
-        fontSize: 11,
-        fontFamily: fonts.semiBold,
-        color: wrappedColors.primary,
-        letterSpacing: 1,
-        textTransform: 'uppercase',
-    },
-    heroContainer: {
-        position: 'relative',
-        width: 240,
-        height: 240,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginBottom: 32,
-    },
-    ringOuter: {
-        position: 'absolute',
-        width: '100%',
-        height: '100%',
-        borderRadius: 120,
-        borderWidth: 1,
-        borderColor: 'rgba(75, 43, 238, 0.1)',
-    },
-    ringInner: {
-        position: 'absolute',
-        width: '75%',
-        height: '75%',
-        borderRadius: 100,
-        borderWidth: 1,
-        borderColor: 'rgba(75, 43, 238, 0.25)',
-    },
-    heroCircle: {
-        width: 180,
-        height: 180,
-        borderRadius: 90,
-        backgroundColor: 'rgba(75, 43, 238, 0.15)',
-        borderWidth: 3,
-        borderColor: 'rgba(255, 255, 255, 0.05)',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    heroEmoji: {
-        fontSize: 80,
-    },
-    floatingBadge: {
-        position: 'absolute',
-        bottom: 10,
-        right: 20,
-        width: 48,
-        height: 48,
-        borderRadius: 16,
-        backgroundColor: wrappedColors.surface,
-        borderWidth: 1,
-        borderColor: 'rgba(255, 255, 255, 0.1)',
-        justifyContent: 'center',
-        alignItems: 'center',
-        transform: [{ rotate: '6deg' }],
-    },
-    floatingBadgeIcon: {
+    titleLabel: {
         fontSize: 24,
-    },
-    textContainer: {
-        alignItems: 'center',
-        marginBottom: 16,
-    },
-    headline: {
-        fontSize: 30,
-        fontFamily: fonts.bold,
-        color: wrappedColors.textPrimary,
-        textAlign: 'center',
-    },
-    headlineAccent: {
-        color: wrappedColors.primary,
-    },
-    description: {
-        fontSize: 18,
         fontFamily: fonts.medium,
-        color: wrappedColors.textSecondary,
+        color: '#6B5344',
         textAlign: 'center',
-        paddingHorizontal: 20,
-        marginBottom: 24,
-        lineHeight: 28,
+        marginBottom: 8,
+    },
+    titlePersona: {
+        fontSize: 36,
+        fontFamily: fonts.bold,
+        color: '#3B2415',
+        textAlign: 'center',
+        lineHeight: 44,
     },
     statsCard: {
-        paddingVertical: 16,
-        paddingHorizontal: 24,
+        backgroundColor: 'rgba(255, 255, 255, 0.85)',
+        borderRadius: 20,
+        paddingVertical: 20,
+        paddingHorizontal: 28,
+        marginHorizontal: 24,
+        borderWidth: 1,
+        borderColor: 'rgba(139, 105, 20, 0.15)',
     },
-    statsText: {
+    statRow: {
+        flexDirection: 'row',
+        alignItems: 'baseline',
+        gap: 8,
+    },
+    statNumber: {
+        fontSize: 32,
+        fontFamily: fonts.bold,
+        color: '#8B6914',
+    },
+    statText: {
         fontSize: 14,
         fontFamily: fonts.medium,
-        color: wrappedColors.textSecondary,
-        textAlign: 'center',
+        color: '#6B5344',
     },
-    statsHighlight: {
-        color: wrappedColors.primary,
-        fontFamily: fonts.bold,
+    divider: {
+        height: 1,
+        backgroundColor: 'rgba(139, 105, 20, 0.15)',
+        marginVertical: 16,
     },
 });
 
 export default PersonalitySlide;
+

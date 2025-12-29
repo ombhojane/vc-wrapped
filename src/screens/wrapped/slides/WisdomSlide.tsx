@@ -1,9 +1,8 @@
 // WisdomSlide - Voice wisdom quote
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { wrappedColors, fonts } from '../../../theme';
+import { fonts } from '../../../theme';
 import { WrappedStats } from '../../../types';
-import { GlassCard } from '../../../components/wrapped';
 
 interface SlideProps {
     stats: WrappedStats;
@@ -30,7 +29,6 @@ const WisdomSlide: React.FC<SlideProps> = ({ stats }) => {
 
             {/* Hero Visual */}
             <View style={styles.heroContainer}>
-                <View style={styles.heroGlow} />
                 <View style={styles.heroCircle}>
                     <Text style={styles.heroIcon}>🌙</Text>
                 </View>
@@ -44,11 +42,11 @@ const WisdomSlide: React.FC<SlideProps> = ({ stats }) => {
             </View>
 
             {/* Stats Card */}
-            <GlassCard style={styles.statsCard}>
+            <View style={styles.statsCard}>
                 <Text style={styles.statsText}>
                     You spent <Text style={styles.statsHighlight}>42 hours</Text> on calls after 10 PM this year.
                 </Text>
-            </GlassCard>
+            </View>
         </View>
     );
 };
@@ -56,8 +54,8 @@ const WisdomSlide: React.FC<SlideProps> = ({ stats }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
         alignItems: 'center',
+        paddingTop: 24,
     },
     chip: {
         flexDirection: 'row',
@@ -66,10 +64,10 @@ const styles = StyleSheet.create({
         paddingVertical: 6,
         paddingHorizontal: 14,
         borderRadius: 20,
-        backgroundColor: 'rgba(255, 255, 255, 0.05)',
+        backgroundColor: 'rgba(245, 230, 211, 0.6)',
         borderWidth: 1,
-        borderColor: 'rgba(255, 255, 255, 0.1)',
-        marginBottom: 24,
+        borderColor: 'rgba(139, 105, 20, 0.15)',
+        marginBottom: 20,
     },
     chipIcon: {
         fontSize: 12,
@@ -77,83 +75,80 @@ const styles = StyleSheet.create({
     chipText: {
         fontSize: 10,
         fontFamily: fonts.bold,
-        color: 'rgba(75, 43, 238, 0.8)',
+        color: '#8B6914',
         letterSpacing: 2,
     },
     heroContainer: {
-        position: 'relative',
-        width: 160,
-        height: 160,
+        width: 120,
+        height: 120,
         justifyContent: 'center',
         alignItems: 'center',
-        marginBottom: 32,
-    },
-    heroGlow: {
-        position: 'absolute',
-        width: 140,
-        height: 140,
-        borderRadius: 70,
-        backgroundColor: wrappedColors.primaryGlow,
+        marginBottom: 24,
     },
     heroCircle: {
-        width: 130,
-        height: 130,
-        borderRadius: 65,
-        backgroundColor: 'rgba(42, 42, 62, 0.8)',
+        width: 100,
+        height: 100,
+        borderRadius: 50,
+        backgroundColor: 'rgba(245, 230, 211, 0.6)',
         borderWidth: 1,
-        borderColor: 'rgba(255, 255, 255, 0.1)',
+        borderColor: 'rgba(139, 105, 20, 0.2)',
         justifyContent: 'center',
         alignItems: 'center',
     },
     heroIcon: {
-        fontSize: 60,
+        fontSize: 48,
     },
     quoteContainer: {
         position: 'relative',
         paddingHorizontal: 24,
-        marginBottom: 24,
+        marginBottom: 20,
     },
     quoteMarkOpen: {
         position: 'absolute',
-        top: -20,
+        top: -16,
         left: 8,
-        fontSize: 60,
+        fontSize: 50,
         fontFamily: fonts.bold,
-        color: 'rgba(75, 43, 238, 0.2)',
-        lineHeight: 60,
+        color: 'rgba(139, 105, 20, 0.2)',
+        lineHeight: 50,
     },
     quoteText: {
-        fontSize: 24,
+        fontSize: 22,
         fontFamily: fonts.bold,
-        color: wrappedColors.textPrimary,
+        color: '#3B2415',
         textAlign: 'center',
-        lineHeight: 34,
+        lineHeight: 32,
     },
     quoteMarkClose: {
         position: 'absolute',
-        bottom: -40,
+        bottom: -30,
         right: 8,
-        fontSize: 60,
+        fontSize: 50,
         fontFamily: fonts.bold,
-        color: 'rgba(75, 43, 238, 0.2)',
-        lineHeight: 60,
+        color: 'rgba(139, 105, 20, 0.2)',
+        lineHeight: 50,
     },
     statsCard: {
+        backgroundColor: 'rgba(245, 230, 211, 0.5)',
+        borderRadius: 16,
         paddingVertical: 14,
         paddingHorizontal: 20,
         marginTop: 16,
+        borderWidth: 1,
+        borderColor: 'rgba(139, 105, 20, 0.15)',
     },
     statsText: {
         fontSize: 14,
         fontFamily: fonts.regular,
-        color: wrappedColors.textSecondary,
+        color: '#5A4332',
         textAlign: 'center',
     },
     statsHighlight: {
-        fontSize: 16,
+        fontSize: 15,
         fontFamily: fonts.bold,
-        color: wrappedColors.textPrimary,
+        color: '#3B2415',
     },
 });
 
 export default WisdomSlide;
+

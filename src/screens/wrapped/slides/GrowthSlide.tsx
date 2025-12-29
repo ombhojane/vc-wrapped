@@ -1,10 +1,9 @@
 // GrowthSlide - What this year taught you
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { wrappedColors, fonts } from '../../../theme';
+import { fonts } from '../../../theme';
 import { WrappedStats } from '../../../types';
 import { formatDuration } from '../../../utils/formatters';
-import { GlassCard } from '../../../components/wrapped';
 
 interface SlideProps {
     stats: WrappedStats;
@@ -24,10 +23,9 @@ const GrowthSlide: React.FC<SlideProps> = ({ stats }) => {
 
             {/* Hero Visual */}
             <View style={styles.heroContainer}>
-                <View style={styles.heroGlow} />
-                <GlassCard style={styles.heroCard}>
+                <View style={styles.heroCard}>
                     <Text style={styles.heroEmoji}>📈</Text>
-                </GlassCard>
+                </View>
                 <View style={[styles.floatingBadge, styles.floatingBadgeRight]}>
                     <Text style={styles.floatingIcon}>📊</Text>
                     <Text style={styles.floatingText}>Depth +200%</Text>
@@ -60,51 +58,47 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        paddingTop: 20,
+        paddingTop: 16,
     },
     yearLabel: {
         fontSize: 10,
         fontFamily: fonts.medium,
-        color: wrappedColors.textMuted,
+        color: '#8B7B6B',
         letterSpacing: 2,
         textAlign: 'center',
-        marginBottom: 16,
+        marginBottom: 12,
     },
     headline: {
-        fontSize: 30,
+        fontSize: 28,
         fontFamily: fonts.bold,
-        color: wrappedColors.textPrimary,
+        color: '#3B2415',
         textAlign: 'center',
-        lineHeight: 38,
-        marginBottom: 24,
+        lineHeight: 36,
+        marginBottom: 20,
     },
     headlineAccent: {
-        color: wrappedColors.primary,
+        color: '#8B6914',
     },
     heroContainer: {
         position: 'relative',
         width: '100%',
-        height: 180,
+        height: 140,
         justifyContent: 'center',
         alignItems: 'center',
-        marginBottom: 24,
-    },
-    heroGlow: {
-        position: 'absolute',
-        width: 140,
-        height: 140,
-        borderRadius: 70,
-        backgroundColor: wrappedColors.primaryGlow,
+        marginBottom: 20,
     },
     heroCard: {
-        width: 140,
-        height: 140,
-        borderRadius: 70,
+        width: 100,
+        height: 100,
+        borderRadius: 50,
+        backgroundColor: 'rgba(245, 230, 211, 0.6)',
+        borderWidth: 1,
+        borderColor: 'rgba(139, 105, 20, 0.2)',
         justifyContent: 'center',
         alignItems: 'center',
     },
     heroEmoji: {
-        fontSize: 60,
+        fontSize: 48,
     },
     floatingBadge: {
         position: 'absolute',
@@ -114,20 +108,20 @@ const styles = StyleSheet.create({
         paddingVertical: 8,
         paddingHorizontal: 12,
         borderRadius: 12,
-        backgroundColor: wrappedColors.surface,
+        backgroundColor: 'rgba(245, 230, 211, 0.7)',
         borderWidth: 1,
-        borderColor: 'rgba(255, 255, 255, 0.1)',
+        borderColor: 'rgba(139, 105, 20, 0.15)',
     },
     floatingBadgeRight: {
-        top: 20,
-        right: 10,
+        top: 10,
+        right: 20,
         transform: [{ rotate: '3deg' }],
     },
     floatingBadgeLeft: {
-        bottom: 20,
-        left: 10,
+        bottom: 10,
+        left: 20,
         transform: [{ rotate: '-3deg' }],
-        opacity: 0.6,
+        opacity: 0.7,
     },
     floatingIcon: {
         fontSize: 14,
@@ -135,40 +129,41 @@ const styles = StyleSheet.create({
     floatingText: {
         fontSize: 11,
         fontFamily: fonts.bold,
-        color: wrappedColors.textPrimary,
+        color: '#3B2415',
     },
     floatingTextMuted: {
         fontSize: 11,
         fontFamily: fonts.medium,
-        color: wrappedColors.textMuted,
+        color: '#6B5344',
     },
     insightContainer: {
         paddingHorizontal: 20,
-        marginBottom: 24,
+        marginBottom: 20,
     },
     insightText: {
-        fontSize: 17,
+        fontSize: 16,
         fontFamily: fonts.medium,
-        color: wrappedColors.textSecondary,
+        color: '#5A4332',
         textAlign: 'center',
-        lineHeight: 26,
+        lineHeight: 24,
     },
     insightHighlight: {
-        color: wrappedColors.textPrimary,
+        color: '#3B2415',
         fontFamily: fonts.bold,
     },
     highlightBox: {
-        backgroundColor: wrappedColors.primary,
-        paddingVertical: 16,
-        paddingHorizontal: 28,
+        backgroundColor: '#8B6914',
+        paddingVertical: 14,
+        paddingHorizontal: 24,
         borderRadius: 30,
     },
     highlightText: {
-        fontSize: 16,
+        fontSize: 15,
         fontFamily: fonts.bold,
-        color: wrappedColors.textPrimary,
+        color: '#FFFFFF',
         textAlign: 'center',
     },
 });
 
 export default GrowthSlide;
+

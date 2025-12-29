@@ -1,6 +1,6 @@
 // Custom hook for loading and managing call data
 import { useState, useEffect, useCallback } from 'react';
-import { CallLog, ContactStats, DashboardStats } from '../types';
+import { CallLog, ContactStats, DashboardStats, WrappedStats } from '../types';
 import {
     requestCallLogPermission,
     fetchCallLogs,
@@ -13,13 +13,15 @@ import {
 } from '../services/contactsService';
 import {
     calculateDashboardStats,
-    calculateContactStats
+    calculateContactStats,
+    calculateWrappedStats,
 } from '../services/statsProcessor';
 
 interface UseCallDataResult {
     callLogs: CallLog[];
     contactStats: ContactStats[];
     dashboardStats: DashboardStats | null;
+    wrappedStats: WrappedStats | null;
     isLoading: boolean;
     hasPermission: boolean;
     error: string | null;
@@ -31,6 +33,7 @@ export const useCallData = (): UseCallDataResult => {
     const [callLogs, setCallLogs] = useState<CallLog[]>([]);
     const [contactStats, setContactStats] = useState<ContactStats[]>([]);
     const [dashboardStats, setDashboardStats] = useState<DashboardStats | null>(null);
+    const [wrappedStats, setWrappedStats] = useState<WrappedStats | null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [hasPermission, setHasPermission] = useState(false);
     const [error, setError] = useState<string | null>(null);
@@ -75,6 +78,9 @@ export const useCallData = (): UseCallDataResult => {
             const stats = calculateDashboardStats(enrichedLogs);
             setDashboardStats(stats);
 
+            const wrapped = calculateWrappedStats(enrichedLogs);
+            setWrappedStats(wrapped);
+
             const contactStatsData = calculateContactStats(enrichedLogs);
             setContactStats(contactStatsData);
         } catch (err) {
@@ -108,6 +114,7 @@ export const useCallData = (): UseCallDataResult => {
         callLogs,
         contactStats,
         dashboardStats,
+        wrappedStats,
         isLoading,
         hasPermission,
         error,

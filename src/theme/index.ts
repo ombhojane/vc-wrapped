@@ -166,33 +166,33 @@ export const glassEffect = {
 // WRAPPED-SPECIFIC THEME (Premium Dark Mode)
 // =====================================================
 
-// Wrapped color palette (matching UI designs)
+// Wrapped color palette - Chocolatey/Warm Pastel Theme
 export const wrappedColors = {
-    // Core colors
-    primary: '#4b2bee',
-    primaryLight: '#6d52f4',
-    background: '#131022',
-    surface: '#1e1b2e',
+    // Core colors - Warm brown/tan palette
+    primary: '#8B6914',        // Warm golden brown
+    primaryLight: '#C4956A',   // Soft tan
+    background: '#1A1510',     // Deep warm brown-black
+    surface: '#2D261E',        // Warm brown surface
 
-    // Secondary accents
-    teal: '#22d3ee',
-    violet: '#a78bfa',
-    coral: '#f472b6',
-    indigo: '#7c66f5',
+    // Secondary accents - Soft pastels from designs
+    teal: '#7FBFB5',           // Soft sage/teal
+    violet: '#B8A4C9',         // Soft lavender
+    coral: '#E8A87C',          // Warm peach/coral
+    indigo: '#8B7355',         // Warm brown
 
-    // Text
-    textPrimary: '#ffffff',
-    textSecondary: 'rgba(255, 255, 255, 0.7)',
-    textMuted: 'rgba(255, 255, 255, 0.5)',
+    // Text - Cream/warm tones
+    textPrimary: '#F5E6D3',    // Warm cream
+    textSecondary: '#C9B8A0',  // Muted cream
+    textMuted: '#8B7B6B',      // Brown muted
 
     // Progress bar
-    progressActive: '#ffffff',
-    progressInactive: 'rgba(255, 255, 255, 0.2)',
+    progressActive: '#F5E6D3',
+    progressInactive: 'rgba(245, 230, 211, 0.2)',
 
-    // Glow effects
-    primaryGlow: 'rgba(75, 43, 238, 0.4)',
-    ambientGlow1: 'rgba(75, 43, 238, 0.2)',
-    ambientGlow2: 'rgba(99, 102, 241, 0.15)',
+    // Glow effects - Warm golden
+    primaryGlow: 'rgba(196, 149, 106, 0.3)',
+    ambientGlow1: 'rgba(139, 105, 20, 0.2)',
+    ambientGlow2: 'rgba(232, 168, 124, 0.15)',
 };
 
 // Wrapped typography

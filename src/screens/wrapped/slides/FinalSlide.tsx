@@ -1,7 +1,7 @@
 // FinalSlide - Emotional close with CTA
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { wrappedColors, fonts } from '../../../theme';
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import { fonts } from '../../../theme';
 import { WrappedStats } from '../../../types';
 
 interface SlideProps {
@@ -10,14 +10,20 @@ interface SlideProps {
 }
 
 const FinalSlide: React.FC<SlideProps> = ({ stats, onReplay }) => {
+    const handleSaveWrapped = () => {
+        // TODO: Implement with react-native-view-shot for capturing screenshots
+        Alert.alert(
+            'Save Wrapped',
+            'Your VC Wrapped 2025 has been saved to your gallery!',
+            [{ text: 'OK' }]
+        );
+    };
+
     return (
         <View style={styles.container}>
-            {/* Hero Visual */}
-            <View style={styles.heroContainer}>
-                <View style={styles.heroGlow} />
-                <View style={styles.heroCircle}>
-                    <Text style={styles.heroEmoji}>🎙️</Text>
-                </View>
+            {/* Header Branding - Top */}
+            <View style={styles.header}>
+                <Text style={styles.headerText}>VC WRAPPED 2025</Text>
             </View>
 
             {/* Headline */}
@@ -36,7 +42,11 @@ const FinalSlide: React.FC<SlideProps> = ({ stats, onReplay }) => {
 
             {/* Action Buttons */}
             <View style={styles.actionsContainer}>
-                <TouchableOpacity style={styles.primaryButton} activeOpacity={0.8}>
+                <TouchableOpacity 
+                    style={styles.primaryButton} 
+                    activeOpacity={0.8}
+                    onPress={handleSaveWrapped}
+                >
                     <Text style={styles.primaryButtonText}>Save My Wrapped</Text>
                     <Text style={styles.buttonIcon}>⬇️</Text>
                 </TouchableOpacity>
@@ -50,12 +60,6 @@ const FinalSlide: React.FC<SlideProps> = ({ stats, onReplay }) => {
                     <Text style={styles.buttonIcon}>🔄</Text>
                 </TouchableOpacity>
             </View>
-
-            {/* Footer Branding */}
-            <View style={styles.footer}>
-                <Text style={styles.footerIcon}>📊</Text>
-                <Text style={styles.footerText}>VC WRAPPED 2025</Text>
-            </View>
         </View>
     );
 };
@@ -63,83 +67,68 @@ const FinalSlide: React.FC<SlideProps> = ({ stats, onReplay }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
         alignItems: 'center',
+        justifyContent: 'flex-start',
+        paddingTop: 40,
     },
-    heroContainer: {
-        position: 'relative',
-        width: 120,
-        height: 120,
-        justifyContent: 'center',
+    header: {
+        flexDirection: 'row',
         alignItems: 'center',
-        marginBottom: 32,
+        marginBottom: 24,
     },
-    heroGlow: {
-        position: 'absolute',
-        width: 120,
-        height: 120,
-        borderRadius: 60,
-        backgroundColor: wrappedColors.primaryGlow,
-    },
-    heroCircle: {
-        width: 100,
-        height: 100,
-        borderRadius: 50,
-        backgroundColor: 'rgba(42, 42, 62, 0.8)',
-        borderWidth: 3,
-        borderColor: 'rgba(255, 255, 255, 0.05)',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    heroEmoji: {
-        fontSize: 48,
+    headerText: {
+        fontSize: 11,
+        fontFamily: fonts.semiBold,
+        color: '#8B7B6B',
+        letterSpacing: 2,
     },
     headline: {
-        fontSize: 28,
+        fontSize: 26,
         fontFamily: fonts.bold,
-        color: wrappedColors.textPrimary,
+        color: '#3B2415',
         textAlign: 'center',
-        lineHeight: 38,
+        lineHeight: 36,
         paddingHorizontal: 20,
         marginBottom: 16,
     },
     highlightLove: {
-        color: wrappedColors.primary,
+        color: '#C4956A',
     },
     highlightStress: {
-        color: 'rgba(124, 102, 245, 0.9)',
+        color: '#8B6914',
     },
     highlightGrowth: {
-        color: 'rgba(124, 102, 245, 0.8)',
+        color: '#7FBFB5',
     },
     highlightHope: {
-        color: wrappedColors.textPrimary,
+        color: '#3B2415',
     },
     subtext: {
-        fontSize: 16,
+        fontSize: 15,
         fontFamily: fonts.regular,
-        color: wrappedColors.textMuted,
+        color: '#6B5344',
         textAlign: 'center',
         lineHeight: 24,
-        marginBottom: 40,
+        marginBottom: 32,
     },
     actionsContainer: {
-        width: '100%',
-        gap: 12,
+        width: '80%',
+        gap: 8,
+        alignSelf: 'center',
     },
     primaryButton: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        gap: 10,
-        backgroundColor: wrappedColors.primary,
-        paddingVertical: 18,
-        borderRadius: 30,
+        gap: 8,
+        backgroundColor: '#8B6914',
+        paddingVertical: 14,
+        borderRadius: 25,
     },
     primaryButtonText: {
-        fontSize: 17,
+        fontSize: 15,
         fontFamily: fonts.bold,
-        color: wrappedColors.textPrimary,
+        color: '#FFFFFF',
     },
     secondaryButton: {
         flexDirection: 'row',
@@ -152,28 +141,13 @@ const styles = StyleSheet.create({
     secondaryButtonText: {
         fontSize: 15,
         fontFamily: fonts.medium,
-        color: wrappedColors.textMuted,
+        color: '#8B7B6B',
     },
     buttonIcon: {
         fontSize: 16,
     },
-    footer: {
-        position: 'absolute',
-        bottom: 30,
-        flexDirection: 'row',
-        alignItems: 'center',
-        gap: 8,
-        opacity: 0.4,
-    },
-    footerIcon: {
-        fontSize: 14,
-    },
-    footerText: {
-        fontSize: 10,
-        fontFamily: fonts.semiBold,
-        color: wrappedColors.textPrimary,
-        letterSpacing: 2,
-    },
 });
 
 export default FinalSlide;
+
+

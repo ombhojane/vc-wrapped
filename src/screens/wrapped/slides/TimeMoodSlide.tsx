@@ -1,9 +1,8 @@
 // TimeMoodSlide - Peak calling time and busiest day
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { wrappedColors, fonts, wrappedGlassPanel } from '../../../theme';
+import { fonts } from '../../../theme';
 import { WrappedStats } from '../../../types';
-import { GlassCard } from '../../../components/wrapped';
 
 interface SlideProps {
     stats: WrappedStats;
@@ -18,12 +17,34 @@ const TimeMoodSlide: React.FC<SlideProps> = ({ stats }) => {
         const minute = stats.peakMinute || 0;
         const period = hour >= 12 ? 'PM' : 'AM';
         const displayHour = hour % 12 || 12;
-        return { time: `${displayHour}:${minute.toString().padStart(2, '0')}`, period };
+        return { time: `${displayHour}:${minute.toString().padStart(2, '0')}`, period, hour };
     };
 
-    const { time, period } = formatPeakTime();
-    const dayData = [30, 45, 60, 90, 70, 85, 40];
+    // Get appropriate time-of-day description
+    const getTimeDescription = (hour: number) => {
+        if (hour >= 5 && hour < 12) {
+            return 'You did your best talking in the morning.';
+        } else if (hour >= 12 && hour < 17) {
+            return 'You did your best talking in the afternoon.';
+        } else if (hour >= 17 && hour < 21) {
+            return 'You did your best talking in the evening.';
+        } else {
+            return 'You did your best talking late at night.';
+        }
+    };
+
+    const { time, period, hour } = formatPeakTime();
     const busiestDayIndex = DAY_NAMES.indexOf(stats.busiestDay);
+
+    // Generate bar heights - busiest day is always 100%
+    const generateBarHeights = () => {
+        const heights = [40, 55, 45, 60, 50, 70, 35]; // Base random heights
+        if (busiestDayIndex >= 0) {
+            heights[busiestDayIndex] = 100; // Busiest day is tallest
+        }
+        return heights;
+    };
+    const barHeights = generateBarHeights();
 
     return (
         <View style={styles.container}>
@@ -31,26 +52,21 @@ const TimeMoodSlide: React.FC<SlideProps> = ({ stats }) => {
             <Text style={styles.yearLabel}>2025 Wrapped</Text>
             <Text style={styles.headline}>Timing is Everything</Text>
 
-            {/* Peak Time Card */}
-            <GlassCard style={styles.timeCard}>
-                <View style={styles.clockContainer}>
-                    <View style={styles.clockOuter}>
-                        <View style={styles.clockCenter} />
-                    </View>
-                </View>
+            {/* Peak Time Card - No clock visual */}
+            <View style={styles.timeCard}>
                 <Text style={styles.timeText}>
                     {time} <Text style={styles.timePeriod}>{period}</Text>
                 </Text>
                 <Text style={styles.timeDescription}>
-                    You did your best talking late at night.
+                    {getTimeDescription(hour)}
                 </Text>
-            </GlassCard>
+            </View>
 
             {/* Weekly Rhythm */}
             <Text style={styles.sectionLabel}>WEEKLY RHYTHM</Text>
-            <GlassCard style={styles.chartCard}>
+            <View style={styles.chartCard}>
                 <View style={styles.chartContainer}>
-                    {dayData.map((height, index) => (
+                    {barHeights.map((height, index) => (
                         <View key={index} style={styles.barColumn}>
                             <View 
                                 style={[
@@ -86,7 +102,7 @@ const TimeMoodSlide: React.FC<SlideProps> = ({ stats }) => {
                         <Text style={styles.calendarIconText}>📅</Text>
                     </View>
                 </View>
-            </GlassCard>
+            </View>
         </View>
     );
 };
@@ -100,7 +116,7 @@ const styles = StyleSheet.create({
     yearLabel: {
         fontSize: 12,
         fontFamily: fonts.semiBold,
-        color: wrappedColors.textMuted,
+        color: '#8B7B6B',
         textAlign: 'center',
         letterSpacing: 2,
         textTransform: 'uppercase',
@@ -109,53 +125,39 @@ const styles = StyleSheet.create({
     headline: {
         fontSize: 26,
         fontFamily: fonts.bold,
-        color: wrappedColors.textPrimary,
+        color: '#3B2415',
         textAlign: 'center',
         marginBottom: 24,
     },
     timeCard: {
         width: '100%',
         alignItems: 'center',
+        backgroundColor: 'rgba(245, 230, 211, 0.5)', // Warm beige semi-transparent
+        borderRadius: 20,
         padding: 24,
-        marginBottom: 16,
-    },
-    clockContainer: {
-        marginBottom: 16,
-    },
-    clockOuter: {
-        width: 80,
-        height: 80,
-        borderRadius: 40,
-        borderWidth: 3,
-        borderColor: 'rgba(255, 255, 255, 0.1)',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    clockCenter: {
-        width: 12,
-        height: 12,
-        borderRadius: 6,
-        backgroundColor: wrappedColors.primary,
+        marginBottom: 20,
+        borderWidth: 1,
+        borderColor: 'rgba(139, 105, 20, 0.2)',
     },
     timeText: {
         fontSize: 42,
         fontFamily: fonts.bold,
-        color: wrappedColors.textPrimary,
+        color: '#3B2415', // Dark brown for contrast
     },
     timePeriod: {
         fontSize: 20,
-        color: wrappedColors.textMuted,
+        color: '#8B6914', // Golden
     },
     timeDescription: {
         fontSize: 14,
         fontFamily: fonts.medium,
-        color: wrappedColors.textMuted,
+        color: '#5A4332', // Medium brown
         marginTop: 8,
     },
     sectionLabel: {
         fontSize: 11,
         fontFamily: fonts.semiBold,
-        color: wrappedColors.textMuted,
+        color: '#8B7B6B',
         letterSpacing: 2,
         marginBottom: 8,
         alignSelf: 'flex-start',
@@ -163,7 +165,11 @@ const styles = StyleSheet.create({
     },
     chartCard: {
         width: '100%',
+        backgroundColor: 'rgba(245, 230, 211, 0.5)', // Warm beige semi-transparent
+        borderRadius: 20,
         padding: 20,
+        borderWidth: 1,
+        borderColor: 'rgba(139, 105, 20, 0.2)',
     },
     chartContainer: {
         flexDirection: 'row',
@@ -179,12 +185,12 @@ const styles = StyleSheet.create({
     },
     bar: {
         width: '100%',
-        backgroundColor: 'rgba(255, 255, 255, 0.1)',
+        backgroundColor: 'rgba(139, 105, 20, 0.3)', // Muted golden
         borderTopLeftRadius: 8,
         borderTopRightRadius: 8,
     },
     barActive: {
-        backgroundColor: wrappedColors.primary,
+        backgroundColor: '#8B6914', // Golden brown for active
     },
     dayLabels: {
         flexDirection: 'row',
@@ -194,10 +200,10 @@ const styles = StyleSheet.create({
     dayLabel: {
         fontSize: 12,
         fontFamily: fonts.medium,
-        color: wrappedColors.textMuted,
+        color: '#5A4332', // Medium brown
     },
     dayLabelActive: {
-        color: wrappedColors.primary,
+        color: '#8B6914', // Golden
         fontFamily: fonts.bold,
     },
     busiestDayInfo: {
@@ -209,18 +215,18 @@ const styles = StyleSheet.create({
     busiestDayName: {
         fontSize: 20,
         fontFamily: fonts.bold,
-        color: wrappedColors.textPrimary,
+        color: '#3B2415', // Dark brown
     },
     busiestDayDesc: {
         fontSize: 14,
         fontFamily: fonts.regular,
-        color: wrappedColors.textMuted,
+        color: '#5A4332', // Medium brown
     },
     calendarIcon: {
         width: 40,
         height: 40,
         borderRadius: 20,
-        backgroundColor: 'rgba(75, 43, 238, 0.2)',
+        backgroundColor: 'rgba(139, 105, 20, 0.15)',
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -230,3 +236,4 @@ const styles = StyleSheet.create({
 });
 
 export default TimeMoodSlide;
+

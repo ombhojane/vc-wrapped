@@ -10,11 +10,12 @@ import {
     Text,
     StatusBar,
     Animated,
+    ImageBackground,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { StoryProgressBar } from '../../components/wrapped';
-import { wrappedColors, fonts, wrappedStoryConfig } from '../../theme';
+import { fonts } from '../../theme';
 import { WrappedStats } from '../../types';
 
 // Import slides
@@ -130,6 +131,23 @@ const WrappedModal: React.FC<WrappedModalProps> = ({ visible, onClose, stats }) 
 
     if (!visible) return null;
 
+    // Get appropriate background based on current slide
+    const getBackgroundSource = () => {
+        if (currentSlide === 3) { // InnerCircleSlide
+            return require('../../../assets/designs/back4.png');
+        }
+        if (currentSlide === 4) { // TimeMoodSlide
+            return require('../../../assets/designs/back5.png');
+        }
+        if (currentSlide === 5) { // CallTypesSlide
+            return require('../../../assets/designs/back1.png');
+        }
+        if (currentSlide === 9) { // FinalSlide
+            return require('../../../assets/designs/back1.png');
+        }
+        return require('../../../assets/designs/back2.png');
+    };
+
     return (
         <Modal
             visible={visible}
@@ -137,49 +155,54 @@ const WrappedModal: React.FC<WrappedModalProps> = ({ visible, onClose, stats }) 
             presentationStyle="fullScreen"
             onRequestClose={handleClose}
         >
-            <StatusBar barStyle="light-content" backgroundColor={wrappedColors.background} />
-            <TouchableWithoutFeedback
-                onPress={(e) => handleTap(e.nativeEvent.locationX)}
-                onLongPress={handleLongPressIn}
-                onPressOut={handleLongPressOut}
-                delayLongPress={150}
+            <StatusBar barStyle="dark-content" backgroundColor="#F5E6D3" />
+            <ImageBackground
+                source={getBackgroundSource()}
+                style={styles.container}
+                resizeMode="cover"
             >
-                <View style={styles.container}>
-                    {/* Safe Area Content */}
-                    <SafeAreaView style={styles.safeArea}>
-                        {/* Progress Bar */}
-                        <StoryProgressBar
-                            totalSlides={totalSlides}
-                            currentSlide={currentSlide}
-                            isPaused={isPaused}
-                            onSlideComplete={goNext}
-                        />
-
-                        {/* Header */}
-                        <View style={styles.header}>
-                            <View style={styles.headerLeft}>
-                                <Text style={styles.logoIcon}>📊</Text>
-                                <Text style={styles.logoText}>VC WRAPPED</Text>
-                            </View>
-                            <TouchableOpacity 
-                                onPress={handleClose}
-                                style={styles.closeButton}
-                                hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-                            >
-                                <Text style={styles.closeIcon}>✕</Text>
-                            </TouchableOpacity>
-                        </View>
-
-                        {/* Slide Content */}
-                        <Animated.View style={[styles.slideContainer, { opacity: fadeAnim }]}>
-                            <CurrentSlideComponent 
-                                stats={stats} 
-                                onReplay={handleReplay}
+                <TouchableWithoutFeedback
+                    onPress={(e) => handleTap(e.nativeEvent.locationX)}
+                    onLongPress={handleLongPressIn}
+                    onPressOut={handleLongPressOut}
+                    delayLongPress={150}
+                >
+                    <View style={styles.touchArea}>
+                        {/* Safe Area Content */}
+                        <SafeAreaView style={styles.safeArea}>
+                            {/* Progress Bar */}
+                            <StoryProgressBar
+                                totalSlides={totalSlides}
+                                currentSlide={currentSlide}
+                                isPaused={isPaused}
+                                onSlideComplete={goNext}
                             />
-                        </Animated.View>
-                    </SafeAreaView>
-                </View>
-            </TouchableWithoutFeedback>
+
+                            {/* Header */}
+                            <View style={styles.header}>
+                                <View style={styles.headerLeft}>
+                                    <Text style={styles.logoText}>VC WRAPPED</Text>
+                                </View>
+                                <TouchableOpacity 
+                                    onPress={handleClose}
+                                    style={styles.closeButton}
+                                    hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                                >
+                                    <Text style={styles.closeIcon}>✕</Text>
+                                </TouchableOpacity>
+                            </View>
+
+                            {/* Slide Content */}
+                            <Animated.View style={[styles.slideContainer, { opacity: fadeAnim }]}>
+                                <CurrentSlideComponent 
+                                    stats={stats} 
+                                    onReplay={handleReplay}
+                                />
+                            </Animated.View>
+                        </SafeAreaView>
+                    </View>
+                </TouchableWithoutFeedback>
+            </ImageBackground>
         </Modal>
     );
 };
@@ -187,7 +210,9 @@ const WrappedModal: React.FC<WrappedModalProps> = ({ visible, onClose, stats }) 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: wrappedColors.background,
+    },
+    touchArea: {
+        flex: 1,
     },
     safeArea: {
         flex: 1,
@@ -211,7 +236,7 @@ const styles = StyleSheet.create({
     logoText: {
         fontSize: 11,
         fontFamily: fonts.bold,
-        color: wrappedColors.textMuted,
+        color: 'rgba(255, 255, 255, 0.5)',
         letterSpacing: 2,
     },
     closeButton: {
@@ -224,7 +249,7 @@ const styles = StyleSheet.create({
     },
     closeIcon: {
         fontSize: 16,
-        color: wrappedColors.textSecondary,
+        color: 'rgba(255, 255, 255, 0.7)',
     },
     slideContainer: {
         flex: 1,

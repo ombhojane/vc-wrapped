@@ -1,71 +1,65 @@
-// CallTypesSlide - Breakdown of call categories
+// CallTypesSlide - The Breakdown (Spotify-like layout)
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { wrappedColors, fonts, wrappedGlassPanel } from '../../../theme';
+import { View, Text, StyleSheet, Image } from 'react-native';
+import { fonts } from '../../../theme';
 import { WrappedStats } from '../../../types';
+import { formatDuration } from '../../../utils/formatters';
 
 interface SlideProps {
     stats: WrappedStats;
 }
 
-const CATEGORIES = [
-    { key: 'work', label: 'Work & Hustle', sublabel: 'Professional', icon: '💼', color: wrappedColors.primary },
-    { key: 'personal', label: 'Personal', sublabel: 'Family & Friends', icon: '❤️', color: wrappedColors.teal },
-    { key: 'problemSolving', label: 'Problem-Solving', sublabel: 'Support & Logistics', icon: '🧠', color: wrappedColors.violet },
-    { key: 'fun', label: 'Random & Fun', sublabel: 'Just because', icon: '🎉', color: wrappedColors.coral },
-];
-
 const CallTypesSlide: React.FC<SlideProps> = ({ stats }) => {
-    const percentages = stats.callTypePercentages;
-    const totalMinutes = Math.round(stats.totalTalkTimeHours * 60);
+    const topContact = stats.topContacts[0];
+    
+    // Build stats items for numbered list (only 4 to fit better)
+    const statsItems = [
+        {
+            number: '01',
+            label: 'Total Calls',
+            value: stats.totalCallsCount.toString(),
+        },
+        {
+            number: '02',
+            label: 'Talk Time',
+            value: `${Math.round(stats.totalTalkTimeHours)}h`,
+        },
+        {
+            number: '03',
+            label: 'Long Calls',
+            value: stats.longCallsCount.toString(),
+        },
+        {
+            number: '04',
+            label: 'Avg Duration',
+            value: formatDuration(stats.averageCallDuration),
+        },
+    ];
 
     return (
         <View style={styles.container}>
             {/* Header */}
+            <Text style={styles.yearLabel}>2025</Text>
             <Text style={styles.headline}>The Breakdown</Text>
-            <Text style={styles.subheadline}>YOUR YEAR IN CALLS</Text>
 
-            {/* Donut Chart Visual */}
-            <View style={styles.chartSection}>
-                <View style={styles.donutContainer}>
-                    <View style={styles.donutRing} />
-                    <View style={styles.donutCenter}>
-                        <Text style={styles.centerValue}>{totalMinutes.toLocaleString()}</Text>
-                        <Text style={styles.centerLabel}>TOTAL MINUTES</Text>
-                    </View>
-                </View>
-                <View style={styles.floatingBadge}>
-                    <Text style={styles.floatingBadgeText}>Top 1% Talker!</Text>
-                </View>
+            {/* Cover Image */}
+            <View style={styles.coverContainer}>
+                <Image 
+                    source={require('../../../../assets/designs/cover.png')}
+                    style={styles.coverImage}
+                    resizeMode="cover"
+                />
             </View>
 
-            {/* Category List */}
-            <View style={styles.categoriesList}>
-                {CATEGORIES.map((cat) => (
-                    <View key={cat.key} style={styles.categoryCard}>
-                        <View style={styles.categoryLeft}>
-                            <View style={[styles.categoryIcon, { backgroundColor: `${cat.color}20` }]}>
-                                <Text style={styles.categoryIconText}>{cat.icon}</Text>
-                            </View>
-                            <View>
-                                <Text style={styles.categoryLabel}>{cat.label}</Text>
-                                <View style={styles.categorySubRow}>
-                                    <View style={[styles.categoryDot, { backgroundColor: cat.color }]} />
-                                    <Text style={styles.categorySublabel}>{cat.sublabel}</Text>
-                                </View>
-                            </View>
-                        </View>
-                        <Text style={styles.categoryValue}>
-                            {percentages[cat.key as keyof typeof percentages]}%
-                        </Text>
+            {/* Stats List - Compact */}
+            <View style={styles.statsList}>
+                {statsItems.map((item) => (
+                    <View key={item.number} style={styles.statRow}>
+                        <Text style={styles.statNumber}>{item.number}</Text>
+                        <Text style={styles.statLabel}>{item.label}</Text>
+                        <Text style={styles.statValue}>{item.value}</Text>
                     </View>
                 ))}
-            </View>
-
-            {/* Footer */}
-            <View style={styles.footerText}>
-                <Text style={styles.footerLine1}>You didn't just talk.</Text>
-                <Text style={styles.footerLine2}>You balanced life.</Text>
             </View>
         </View>
     );
@@ -75,142 +69,72 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
+        paddingTop: 16,
+    },
+    yearLabel: {
+        fontSize: 12,
+        fontFamily: fonts.semiBold,
+        color: '#8B7B6B',
+        textAlign: 'center',
+        letterSpacing: 2,
+        textTransform: 'uppercase',
+        marginBottom: 4,
     },
     headline: {
         fontSize: 28,
         fontFamily: fonts.bold,
-        color: wrappedColors.textPrimary,
+        color: '#3B2415',
         textAlign: 'center',
-        marginBottom: 4,
+        marginBottom: 16,
     },
-    subheadline: {
-        fontSize: 11,
-        fontFamily: fonts.medium,
-        color: wrappedColors.textMuted,
-        textAlign: 'center',
-        letterSpacing: 2,
-        marginBottom: 20,
+    coverContainer: {
+        width: 120,
+        height: 120,
+        borderRadius: 12,
+        overflow: 'hidden',
+        marginBottom: 16,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.2,
+        shadowRadius: 8,
+        elevation: 6,
     },
-    chartSection: {
-        position: 'relative',
-        marginBottom: 20,
+    coverImage: {
+        width: '100%',
+        height: '100%',
     },
-    donutContainer: {
-        width: 160,
-        height: 160,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    donutRing: {
-        width: 160,
-        height: 160,
-        borderRadius: 80,
-        backgroundColor: wrappedColors.primary,
-        position: 'absolute',
-    },
-    donutCenter: {
-        width: 100,
-        height: 100,
-        borderRadius: 50,
-        backgroundColor: wrappedColors.background,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    centerValue: {
-        fontSize: 24,
-        fontFamily: fonts.bold,
-        color: wrappedColors.primary,
-    },
-    centerLabel: {
-        fontSize: 9,
-        fontFamily: fonts.medium,
-        color: wrappedColors.textMuted,
-        letterSpacing: 1,
-        marginTop: 2,
-    },
-    floatingBadge: {
-        position: 'absolute',
-        top: -10,
-        right: -30,
-        backgroundColor: wrappedColors.surface,
-        borderWidth: 1,
-        borderColor: 'rgba(255, 255, 255, 0.1)',
-        paddingHorizontal: 10,
-        paddingVertical: 6,
-        borderRadius: 8,
-        transform: [{ rotate: '6deg' }],
-    },
-    floatingBadgeText: {
-        fontSize: 10,
-        fontFamily: fonts.bold,
-        color: wrappedColors.textPrimary,
-    },
-    categoriesList: {
+    statsList: {
         width: '100%',
         gap: 8,
     },
-    categoryCard: {
-        ...wrappedGlassPanel,
+    statRow: {
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-between',
-        padding: 14,
+        backgroundColor: 'rgba(245, 230, 211, 0.5)',
+        borderRadius: 12,
+        paddingVertical: 14,
+        paddingHorizontal: 16,
+        borderWidth: 1,
+        borderColor: 'rgba(139, 105, 20, 0.15)',
     },
-    categoryLeft: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        gap: 12,
+    statNumber: {
+        fontSize: 14,
+        fontFamily: fonts.bold,
+        color: '#8B6914',
+        width: 32,
     },
-    categoryIcon: {
-        width: 40,
-        height: 40,
-        borderRadius: 20,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    categoryIconText: {
-        fontSize: 18,
-    },
-    categoryLabel: {
+    statLabel: {
         fontSize: 14,
         fontFamily: fonts.semiBold,
-        color: wrappedColors.textPrimary,
+        color: '#3B2415',
+        flex: 1,
     },
-    categorySubRow: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        gap: 6,
-        marginTop: 2,
-    },
-    categoryDot: {
-        width: 6,
-        height: 6,
-        borderRadius: 3,
-    },
-    categorySublabel: {
-        fontSize: 11,
-        fontFamily: fonts.regular,
-        color: wrappedColors.textMuted,
-    },
-    categoryValue: {
-        fontSize: 18,
+    statValue: {
+        fontSize: 16,
         fontFamily: fonts.bold,
-        color: wrappedColors.textPrimary,
-    },
-    footerText: {
-        marginTop: 20,
-        alignItems: 'center',
-    },
-    footerLine1: {
-        fontSize: 20,
-        fontFamily: fonts.semiBold,
-        color: wrappedColors.textSecondary,
-    },
-    footerLine2: {
-        fontSize: 20,
-        fontFamily: fonts.bold,
-        color: wrappedColors.textPrimary,
+        color: '#8B6914',
     },
 });
 
 export default CallTypesSlide;
+

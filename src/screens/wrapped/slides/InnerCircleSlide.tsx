@@ -1,7 +1,7 @@
 // InnerCircleSlide - Your top contacts
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { wrappedColors, fonts, wrappedGlassPanel } from '../../../theme';
+import { fonts } from '../../../theme';
 import { WrappedStats } from '../../../types';
 import { formatDuration } from '../../../utils/formatters';
 
@@ -13,51 +13,46 @@ const InnerCircleSlide: React.FC<SlideProps> = ({ stats }) => {
     const topContact = stats.topContacts[0];
     const runners = stats.topContacts.slice(1, 3);
 
+    // Format total talk time in hours and minutes
+    const formatTalkTime = () => {
+        const totalSeconds = stats.totalTalkTimeSeconds;
+        const hours = Math.floor(totalSeconds / 3600);
+        const minutes = Math.floor((totalSeconds % 3600) / 60);
+        return `${hours}h ${minutes}m`;
+    };
+
     return (
         <View style={styles.container}>
             {/* Header */}
-            <Text style={styles.headline}>Your Inner Circle</Text>
-            <Text style={styles.subheadline}>You kept these people closest.</Text>
+            <View style={styles.headerSection}>
+                <Text style={styles.headline}>Your Inner Circle</Text>
+                <Text style={styles.subheadline}>The people who matter most</Text>
+            </View>
 
-            {/* #1 Hero */}
+            {/* #1 Contact - Large Center */}
             {topContact && (
-                <View style={styles.heroContainer}>
-                    <View style={styles.heroGlow} />
-                    <View style={styles.heroAvatar}>
-                        <Text style={styles.avatarText}>
-                            {topContact.name.charAt(0).toUpperCase()}
-                        </Text>
+                <View style={styles.heroSection}>
+                    <View style={styles.heroAvatarContainer}>
+                        <View style={styles.heroAvatar}>
+                            <Text style={styles.heroAvatarText}>
+                                {topContact.name.charAt(0).toUpperCase()}
+                            </Text>
+                        </View>
+                        {/* Badge at top-right */}
+                        <View style={styles.heroBadge}>
+                            <Text style={styles.heroBadgeIcon}>🏆</Text>
+                            <Text style={styles.heroBadgeText}>#1</Text>
+                        </View>
                     </View>
-                    <View style={styles.rankBadge}>
-                        <Text style={styles.rankBadgeIcon}>🏆</Text>
-                        <Text style={styles.rankBadgeText}>#1 {topContact.name}</Text>
-                    </View>
+                    <Text style={styles.heroName}>{topContact.name}</Text>
+                    <Text style={styles.heroDuration}>
+                        {formatDuration(topContact.totalDuration)}
+                    </Text>
                 </View>
             )}
 
-            {/* Quote */}
-            {topContact && (
-                <View style={styles.quoteContainer}>
-                    <Text style={styles.quoteText}>"{topContact.quote}"</Text>
-                </View>
-            )}
-
-            {/* Stats Chips */}
-            {topContact && (
-                <View style={styles.statsRow}>
-                    <View style={styles.statChip}>
-                        <Text style={styles.statValue}>{formatDuration(topContact.totalDuration)}</Text>
-                        <Text style={styles.statLabel}>TIME</Text>
-                    </View>
-                    <View style={styles.statChip}>
-                        <Text style={styles.statValue}>{topContact.totalCalls}</Text>
-                        <Text style={styles.statLabel}>CALLS</Text>
-                    </View>
-                </View>
-            )}
-
-            {/* Runners Up */}
-            <View style={styles.runnersContainer}>
+            {/* #2 and #3 Contacts - Row Below */}
+            <View style={styles.runnersRow}>
                 {runners.map((contact, index) => (
                     <View key={contact.name} style={styles.runnerCard}>
                         <View style={styles.runnerAvatarContainer}>
@@ -66,20 +61,32 @@ const InnerCircleSlide: React.FC<SlideProps> = ({ stats }) => {
                                     {contact.name.charAt(0).toUpperCase()}
                                 </Text>
                             </View>
-                            <View style={styles.runnerRank}>
-                                <Text style={styles.runnerRankText}>#{index + 2}</Text>
+                            {/* Badge at top-right */}
+                            <View style={styles.runnerBadge}>
+                                <Text style={styles.runnerBadgeText}>#{index + 2}</Text>
                             </View>
                         </View>
-                        <View style={styles.runnerInfo}>
-                            <Text style={styles.runnerName}>{contact.name}</Text>
-                            <Text style={styles.runnerQuote}>"{contact.quote}"</Text>
-                        </View>
-                        <View style={styles.runnerStats}>
-                            <Text style={styles.runnerStatsValue}>{contact.totalCalls}</Text>
-                            <Text style={styles.runnerStatsLabel}>Calls</Text>
-                        </View>
+                        <Text style={styles.runnerName} numberOfLines={1}>
+                            {contact.name}
+                        </Text>
+                        <Text style={styles.runnerDuration}>
+                            {formatDuration(contact.totalDuration)}
+                        </Text>
                     </View>
                 ))}
+            </View>
+
+            {/* Bottom Stats - Centered, Cream Colors */}
+            <View style={styles.statsRow}>
+                <View style={styles.statItem}>
+                    <Text style={styles.statValue}>{stats.totalCallsCount}</Text>
+                    <Text style={styles.statLabel}>Total Calls</Text>
+                </View>
+                <View style={styles.statDivider} />
+                <View style={styles.statItem}>
+                    <Text style={styles.statValue}>{formatTalkTime()}</Text>
+                    <Text style={styles.statLabel}>Talk Time</Text>
+                </View>
             </View>
         </View>
     );
@@ -88,185 +95,178 @@ const InnerCircleSlide: React.FC<SlideProps> = ({ stats }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        position: 'relative',
+    },
+    headerSection: {
         alignItems: 'center',
         paddingTop: 20,
+        marginBottom: 20,
     },
     headline: {
         fontSize: 28,
         fontFamily: fonts.bold,
-        color: wrappedColors.textPrimary,
+        color: '#3B2415',
         textAlign: 'center',
         marginBottom: 8,
     },
     subheadline: {
-        fontSize: 16,
+        fontSize: 14,
         fontFamily: fonts.regular,
-        color: wrappedColors.textMuted,
+        color: '#6B5344',
         textAlign: 'center',
+    },
+    // Hero Section (#1 Contact)
+    heroSection: {
+        alignItems: 'center',
         marginBottom: 24,
     },
-    heroContainer: {
+    heroAvatarContainer: {
         position: 'relative',
-        width: 140,
-        height: 140,
-        justifyContent: 'center',
-        alignItems: 'center',
-        marginBottom: 16,
-    },
-    heroGlow: {
-        position: 'absolute',
-        width: 130,
-        height: 130,
-        borderRadius: 65,
-        backgroundColor: wrappedColors.primaryGlow,
+        marginBottom: 12,
     },
     heroAvatar: {
-        width: 120,
-        height: 120,
-        borderRadius: 60,
-        backgroundColor: wrappedColors.primary,
+        width: 100,
+        height: 100,
+        borderRadius: 50,
+        backgroundColor: '#8B6914',
         justifyContent: 'center',
         alignItems: 'center',
-        borderWidth: 4,
-        borderColor: wrappedColors.background,
     },
-    avatarText: {
-        fontSize: 48,
+    heroAvatarText: {
+        fontSize: 42,
         fontFamily: fonts.bold,
-        color: wrappedColors.textPrimary,
+        color: '#FFFFFF',
     },
-    rankBadge: {
+    heroBadge: {
         position: 'absolute',
-        bottom: -12,
+        top: -4,
+        right: -8,
         flexDirection: 'row',
         alignItems: 'center',
-        gap: 4,
-        backgroundColor: wrappedColors.primary,
-        paddingVertical: 6,
-        paddingHorizontal: 12,
-        borderRadius: 20,
+        gap: 2,
+        backgroundColor: '#8B6914',
+        paddingVertical: 4,
+        paddingHorizontal: 8,
+        borderRadius: 12,
         borderWidth: 2,
-        borderColor: wrappedColors.background,
+        borderColor: '#FFFFFF',
     },
-    rankBadgeIcon: {
-        fontSize: 12,
+    heroBadgeIcon: {
+        fontSize: 10,
     },
-    rankBadgeText: {
-        fontSize: 12,
+    heroBadgeText: {
+        fontSize: 11,
         fontFamily: fonts.bold,
-        color: wrappedColors.textPrimary,
+        color: '#FFFFFF',
     },
-    quoteContainer: {
-        marginTop: 20,
-        marginBottom: 16,
-    },
-    quoteText: {
-        fontSize: 18,
-        fontFamily: fonts.medium,
-        fontStyle: 'italic',
-        color: wrappedColors.textSecondary,
-        textAlign: 'center',
-    },
-    statsRow: {
-        flexDirection: 'row',
-        gap: 12,
-        marginBottom: 24,
-    },
-    statChip: {
-        ...wrappedGlassPanel,
-        paddingVertical: 12,
-        paddingHorizontal: 24,
-        alignItems: 'center',
-        minWidth: 100,
-    },
-    statValue: {
+    heroName: {
         fontSize: 22,
         fontFamily: fonts.bold,
-        color: wrappedColors.textPrimary,
+        color: '#3B2415',
+        textAlign: 'center',
+        marginBottom: 4,
     },
-    statLabel: {
-        fontSize: 10,
-        fontFamily: fonts.bold,
-        color: wrappedColors.primary,
-        letterSpacing: 1,
-        marginTop: 2,
+    heroDuration: {
+        fontSize: 16,
+        fontFamily: fonts.medium,
+        color: '#8B6914',
     },
-    runnersContainer: {
-        width: '100%',
-        gap: 10,
+    // Runners Row (#2 and #3)
+    runnersRow: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        gap: 16,
+        marginBottom: 24,
+        paddingHorizontal: 24,
     },
     runnerCard: {
-        ...wrappedGlassPanel,
-        flexDirection: 'row',
         alignItems: 'center',
-        padding: 12,
-        borderRadius: 50,
+        backgroundColor: 'rgba(255, 255, 255, 0.6)',
+        borderRadius: 16,
+        paddingVertical: 16,
+        paddingHorizontal: 20,
+        minWidth: 120,
+        borderWidth: 1,
+        borderColor: 'rgba(139, 105, 20, 0.1)',
     },
     runnerAvatarContainer: {
         position: 'relative',
+        marginBottom: 8,
     },
     runnerAvatar: {
-        width: 48,
-        height: 48,
-        borderRadius: 24,
-        backgroundColor: 'rgba(75, 43, 238, 0.3)',
+        width: 56,
+        height: 56,
+        borderRadius: 28,
+        backgroundColor: '#C4956A',
         justifyContent: 'center',
         alignItems: 'center',
-        borderWidth: 2,
-        borderColor: 'rgba(255, 255, 255, 0.1)',
     },
     runnerAvatarText: {
-        fontSize: 18,
+        fontSize: 24,
         fontFamily: fonts.bold,
-        color: wrappedColors.textPrimary,
+        color: '#FFFFFF',
     },
-    runnerRank: {
+    runnerBadge: {
         position: 'absolute',
         top: -4,
-        right: -4,
-        width: 20,
-        height: 20,
-        borderRadius: 10,
-        backgroundColor: wrappedColors.surface,
-        borderWidth: 1,
-        borderColor: 'rgba(255, 255, 255, 0.2)',
-        justifyContent: 'center',
-        alignItems: 'center',
+        right: -8,
+        backgroundColor: '#8B6914',
+        paddingVertical: 3,
+        paddingHorizontal: 6,
+        borderRadius: 8,
+        borderWidth: 2,
+        borderColor: '#FFFFFF',
     },
-    runnerRankText: {
-        fontSize: 8,
+    runnerBadgeText: {
+        fontSize: 10,
         fontFamily: fonts.bold,
-        color: wrappedColors.textPrimary,
-    },
-    runnerInfo: {
-        flex: 1,
-        marginLeft: 12,
+        color: '#FFFFFF',
     },
     runnerName: {
         fontSize: 14,
         fontFamily: fonts.semiBold,
-        color: wrappedColors.textPrimary,
+        color: '#3B2415',
+        textAlign: 'center',
+        marginBottom: 2,
     },
-    runnerQuote: {
+    runnerDuration: {
         fontSize: 12,
-        fontFamily: fonts.regular,
-        fontStyle: 'italic',
-        color: wrappedColors.textMuted,
-    },
-    runnerStats: {
-        alignItems: 'flex-end',
-    },
-    runnerStatsValue: {
-        fontSize: 16,
-        fontFamily: fonts.bold,
-        color: wrappedColors.primary,
-    },
-    runnerStatsLabel: {
-        fontSize: 10,
         fontFamily: fonts.medium,
-        color: wrappedColors.textMuted,
-        textTransform: 'uppercase',
+        color: '#6B5344',
+    },
+    // Stats Row - Positioned at bottom over mobile illustration
+    statsRow: {
+        position: 'absolute',
+        bottom: 130, // Position over mobile illustration
+        left: 0,
+        right: 0,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        gap: 24,
+    },
+    statItem: {
+        alignItems: 'center',
+    },
+    statValue: {
+        fontSize: 18,
+        fontFamily: fonts.bold,
+        color: '#F5E6D3', // Cream
+    },
+    statLabel: {
+        fontSize: 9,
+        fontFamily: fonts.medium,
+        color: '#C9B8A0', // Muted cream
+        marginTop: 2,
+    },
+    statDivider: {
+        width: 1,
+        height: 24,
+        backgroundColor: 'rgba(245, 230, 211, 0.3)', // Cream with opacity
     },
 });
 
 export default InnerCircleSlide;
+
+
+

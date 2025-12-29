@@ -1,15 +1,17 @@
 // Dashboard Screen - Your call stats summary (shown after Wrapped)
-import React from 'react';
+import React, { useState } from 'react';
 import {
     View,
     Text,
     StyleSheet,
     ScrollView,
     RefreshControl,
+    ImageBackground,
+    TouchableOpacity,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from '../components/Icon';
-import { colors, spacing, borderRadius, typography, wrappedColors, fonts } from '../theme';
+import { spacing, borderRadius, fonts } from '../theme';
 import {
     StatCard,
     HeroStat,
@@ -20,10 +22,25 @@ import {
 } from '../components/common';
 import { useCallData } from '../hooks/useCallData';
 import { formatDuration, formatDurationLong } from '../utils/formatters';
+import WrappedModal from './wrapped/WrappedModal';
+
+// Chocolatey color scheme (matching wrapped theme)
+const dashboardColors = {
+    primary: '#8B6914',
+    secondary: '#C4956A',
+    teal: '#7FBFB5',
+    coral: '#D4A574',
+    textPrimary: '#3B2415',
+    textSecondary: '#5A4332',
+    textMuted: '#8B7B6B',
+    surface: 'rgba(245, 230, 211, 0.6)',
+};
 
 const DashboardScreen: React.FC = () => {
+    const [showWrapped, setShowWrapped] = useState(false);
     const {
         dashboardStats,
+        wrappedStats,
         isLoading,
         hasPermission,
         error,
@@ -37,12 +54,25 @@ const DashboardScreen: React.FC = () => {
 
     if (!hasPermission) {
         return (
-            <EmptyState
-                icon="phone-lock"
-                title="Permission Required"
-                message="VC Wrapped needs access to your call logs to show your stats for this year."
-                action={{ label: 'Grant Access', onPress: requestPermissions }}
-            />
+            <ImageBackground
+                source={require('../../assets/designs/back5.png')}
+                style={styles.container}
+                resizeMode="cover"
+            >
+                <SafeAreaView style={styles.permissionContainer}>
+                    <Text style={styles.permissionTitle}>Almost There!</Text>
+                    <Text style={styles.permissionMessage}>
+                        VC Wrapped needs access to your call logs to show your year in review.
+                    </Text>
+                    <TouchableOpacity 
+                        style={styles.permissionButton}
+                        onPress={requestPermissions}
+                        activeOpacity={0.8}
+                    >
+                        <Text style={styles.permissionButtonText}>Grant Access</Text>
+                    </TouchableOpacity>
+                </SafeAreaView>
+            </ImageBackground>
         );
     }
 
@@ -85,15 +115,14 @@ const DashboardScreen: React.FC = () => {
     };
 
     return (
-        <View style={styles.container}>
-            {/* Ambient glows */}
-            <View style={styles.glowTop} />
-            <View style={styles.glowBottom} />
-            
+        <ImageBackground
+            source={require('../../assets/designs/back5.png')}
+            style={styles.container}
+            resizeMode="cover"
+        >
             <SafeAreaView style={styles.safeArea}>
                 {/* Header */}
                 <View style={styles.header}>
-                    <Text style={styles.logoIcon}>📊</Text>
                     <Text style={styles.logoText}>VC WRAPPED 2025</Text>
                 </View>
 
@@ -104,7 +133,7 @@ const DashboardScreen: React.FC = () => {
                         <RefreshControl
                             refreshing={isLoading}
                             onRefresh={refresh}
-                            tintColor={wrappedColors.primary}
+                            tintColor={dashboardColors.primary}
                         />
                     }
                 >
@@ -116,6 +145,16 @@ const DashboardScreen: React.FC = () => {
                             value={formatDurationLong(totalDuration)}
                             label="Total time on calls"
                         />
+                        
+                        {/* Rewatch Wrapped Button */}
+                        <TouchableOpacity 
+                            style={styles.rewatchButton}
+                            onPress={() => setShowWrapped(true)}
+                            activeOpacity={0.8}
+                        >
+                            <Text style={styles.rewatchButtonText}>Rewatch Wrapped</Text>
+                            <Text style={styles.rewatchIcon}>🔄</Text>
+                        </TouchableOpacity>
                     </View>
 
                     {/* Quick Stats Grid */}
@@ -124,14 +163,14 @@ const DashboardScreen: React.FC = () => {
                             title="Total Calls"
                             value={totalCalls}
                             icon="phone"
-                            iconColor={wrappedColors.primary}
+                            iconColor={dashboardColors.primary}
                             style={styles.halfCard}
                         />
                         <StatCard
                             title="Contacts"
                             value={totalContacts}
                             icon="account-group"
-                            iconColor={wrappedColors.violet}
+                            iconColor={dashboardColors.secondary}
                             style={styles.halfCard}
                         />
                     </View>
@@ -140,17 +179,17 @@ const DashboardScreen: React.FC = () => {
                     <SectionHeader title="Call Breakdown" />
                     <View style={styles.breakdownRow}>
                         <View style={styles.breakdownItem}>
-                            <Icon name="phone-incoming" size={24} color={wrappedColors.teal} />
+                            <Icon name="phone-incoming" size={24} color={dashboardColors.teal} />
                             <Text style={styles.breakdownValue}>{callsByType.incoming}</Text>
                             <Text style={styles.breakdownLabel}>Incoming</Text>
                         </View>
                         <View style={styles.breakdownItem}>
-                            <Icon name="phone-outgoing" size={24} color={wrappedColors.violet} />
+                            <Icon name="phone-outgoing" size={24} color={dashboardColors.secondary} />
                             <Text style={styles.breakdownValue}>{callsByType.outgoing}</Text>
                             <Text style={styles.breakdownLabel}>Outgoing</Text>
                         </View>
                         <View style={styles.breakdownItem}>
-                            <Icon name="phone-missed" size={24} color={wrappedColors.coral} />
+                            <Icon name="phone-missed" size={24} color={dashboardColors.coral} />
                             <Text style={styles.breakdownValue}>{callsByType.missed}</Text>
                             <Text style={styles.breakdownLabel}>Missed</Text>
                         </View>
@@ -181,7 +220,7 @@ const DashboardScreen: React.FC = () => {
                             value={longestCall ? formatDuration(longestCall.duration) : '-'}
                             subtitle={longestCall?.name || 'No calls yet'}
                             icon="timer"
-                            iconColor={wrappedColors.teal}
+                            iconColor={dashboardColors.teal}
                             style={styles.halfCard}
                         />
                         <StatCard
@@ -189,7 +228,7 @@ const DashboardScreen: React.FC = () => {
                             value={formatHour(peakHour)}
                             subtitle="When you call most"
                             icon="clock-outline"
-                            iconColor={wrappedColors.coral}
+                            iconColor={dashboardColors.coral}
                             style={styles.halfCard}
                         />
                     </View>
@@ -199,39 +238,29 @@ const DashboardScreen: React.FC = () => {
                         value={formatDuration(averageCallDuration)}
                         subtitle="Per conversation"
                         icon="chart-line"
-                        iconColor={wrappedColors.violet}
+                        iconColor={dashboardColors.secondary}
                         style={styles.fullCard}
                     />
 
                     <View style={styles.footer} />
                 </ScrollView>
             </SafeAreaView>
-        </View>
+            
+            {/* Wrapped Modal */}
+            {wrappedStats && (
+                <WrappedModal
+                    visible={showWrapped}
+                    onClose={() => setShowWrapped(false)}
+                    stats={wrappedStats}
+                />
+            )}
+        </ImageBackground>
     );
 };
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: wrappedColors.background,
-    },
-    glowTop: {
-        position: 'absolute',
-        top: -100,
-        left: -50,
-        width: 300,
-        height: 300,
-        borderRadius: 150,
-        backgroundColor: wrappedColors.ambientGlow1,
-    },
-    glowBottom: {
-        position: 'absolute',
-        bottom: -50,
-        right: -50,
-        width: 250,
-        height: 250,
-        borderRadius: 125,
-        backgroundColor: wrappedColors.ambientGlow2,
     },
     safeArea: {
         flex: 1,
@@ -241,15 +270,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         paddingVertical: 16,
-        gap: 8,
-    },
-    logoIcon: {
-        fontSize: 18,
     },
     logoText: {
         fontSize: 12,
         fontFamily: fonts.bold,
-        color: wrappedColors.textMuted,
+        color: dashboardColors.textMuted,
         letterSpacing: 2,
     },
     scrollView: {
@@ -265,12 +290,12 @@ const styles = StyleSheet.create({
     heroTitle: {
         fontSize: 28,
         fontFamily: fonts.bold,
-        color: wrappedColors.textPrimary,
+        color: dashboardColors.textPrimary,
     },
     heroSubtitle: {
         fontSize: 16,
         fontFamily: fonts.regular,
-        color: wrappedColors.textMuted,
+        color: dashboardColors.textMuted,
         marginTop: 4,
         marginBottom: spacing.md,
     },
@@ -287,7 +312,7 @@ const styles = StyleSheet.create({
     },
     breakdownRow: {
         flexDirection: 'row',
-        backgroundColor: wrappedColors.surface,
+        backgroundColor: dashboardColors.surface,
         borderRadius: borderRadius.lg,
         padding: spacing.md,
     },
@@ -298,19 +323,19 @@ const styles = StyleSheet.create({
     breakdownValue: {
         fontSize: 24,
         fontFamily: fonts.bold,
-        color: wrappedColors.textPrimary,
+        color: dashboardColors.textPrimary,
         marginTop: spacing.sm,
     },
     breakdownLabel: {
         fontSize: 12,
         fontFamily: fonts.regular,
-        color: wrappedColors.textMuted,
+        color: dashboardColors.textMuted,
         marginTop: spacing.xs,
     },
     topContact: {
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: wrappedColors.surface,
+        backgroundColor: dashboardColors.surface,
         borderRadius: borderRadius.lg,
         padding: spacing.md,
     },
@@ -321,12 +346,12 @@ const styles = StyleSheet.create({
     topContactName: {
         fontSize: 18,
         fontFamily: fonts.bold,
-        color: wrappedColors.textPrimary,
+        color: dashboardColors.textPrimary,
     },
     topContactStats: {
         fontSize: 14,
         fontFamily: fonts.regular,
-        color: wrappedColors.textMuted,
+        color: dashboardColors.textMuted,
         marginTop: 4,
     },
     trophyIcon: {
@@ -338,6 +363,57 @@ const styles = StyleSheet.create({
     },
     footer: {
         height: spacing.xxl,
+    },
+    rewatchButton: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: 8,
+        backgroundColor: dashboardColors.primary,
+        paddingVertical: 12,
+        paddingHorizontal: 24,
+        borderRadius: 25,
+        marginTop: spacing.md,
+    },
+    rewatchButtonText: {
+        fontSize: 14,
+        fontFamily: fonts.semiBold,
+        color: '#FFFFFF',
+    },
+    rewatchIcon: {
+        fontSize: 14,
+    },
+    permissionContainer: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: spacing.xl,
+    },
+    permissionTitle: {
+        fontSize: 28,
+        fontFamily: fonts.bold,
+        color: dashboardColors.textPrimary,
+        textAlign: 'center',
+        marginBottom: spacing.md,
+    },
+    permissionMessage: {
+        fontSize: 16,
+        fontFamily: fonts.regular,
+        color: dashboardColors.textSecondary,
+        textAlign: 'center',
+        lineHeight: 24,
+        marginBottom: spacing.xl,
+    },
+    permissionButton: {
+        backgroundColor: dashboardColors.primary,
+        paddingHorizontal: 32,
+        paddingVertical: 16,
+        borderRadius: 30,
+    },
+    permissionButtonText: {
+        fontSize: 16,
+        fontFamily: fonts.bold,
+        color: '#FFFFFF',
     },
 });
 
