@@ -11,8 +11,11 @@ import {
     StatusBar,
     Animated,
     ImageBackground,
+    Alert,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import ViewShot from 'react-native-view-shot';
+import { CameraRoll } from '@react-native-camera-roll/camera-roll';
 
 import { StoryProgressBar } from '../../components/wrapped';
 import { fonts } from '../../theme';
@@ -54,7 +57,9 @@ const SLIDES = [
 const WrappedModal: React.FC<WrappedModalProps> = ({ visible, onClose, stats }) => {
     const [currentSlide, setCurrentSlide] = useState(0);
     const [isPaused, setIsPaused] = useState(false);
+    const [isSaving, setIsSaving] = useState(false);
     const fadeAnim = useRef(new Animated.Value(1)).current;
+    const viewShotRef = useRef<ViewShot>(null);
     const totalSlides = SLIDES.length;
 
     // Reset when modal opens
@@ -126,6 +131,50 @@ const WrappedModal: React.FC<WrappedModalProps> = ({ visible, onClose, stats }) 
         setCurrentSlide(0);
     }, []);
 
+    // Save wrapped handler - captures all slides
+    const handleSaveWrapped = useCallback(async () => {
+        if (isSaving) return;
+        setIsSaving(true);
+        setIsPaused(true);
+
+        try {
+            const savedSlides: string[] = [];
+            const originalSlide = currentSlide;
+
+            // Iterate through all slides except the final one (index 0 to 8)
+            for (let i = 0; i < totalSlides - 1; i++) {
+                setCurrentSlide(i);
+                // Wait for slide to render properly
+                await new Promise<void>(resolve => setTimeout(resolve, 600));
+
+                if (viewShotRef.current && viewShotRef.current.capture) {
+                    try {
+                        const uri = await viewShotRef.current.capture();
+                        await CameraRoll.save(uri, { type: 'photo', album: 'VC Wrapped 2025' });
+                        savedSlides.push(uri);
+                    } catch (err) {
+                        console.error(`Error capturing slide ${i}:`, err);
+                    }
+                }
+            }
+
+            // Return to original slide
+            setCurrentSlide(originalSlide);
+
+            Alert.alert(
+                '✅ Saved!',
+                `${savedSlides.length} slides saved to your gallery in "VC Wrapped 2025" album.`,
+                [{ text: 'OK' }]
+            );
+        } catch (error) {
+            console.error('Error saving wrapped:', error);
+            Alert.alert('Error', 'Failed to save wrapped. Please try again.');
+        } finally {
+            setIsSaving(false);
+            setIsPaused(false);
+        }
+    }, [currentSlide, isSaving, totalSlides]);
+
     // Current slide component
     const CurrentSlideComponent = SLIDES[currentSlide];
 
@@ -156,53 +205,61 @@ const WrappedModal: React.FC<WrappedModalProps> = ({ visible, onClose, stats }) 
             onRequestClose={handleClose}
         >
             <StatusBar barStyle="dark-content" backgroundColor="#F5E6D3" />
-            <ImageBackground
-                source={getBackgroundSource()}
+            <ViewShot 
+                ref={viewShotRef} 
+                options={{ format: 'png', quality: 1 }}
                 style={styles.container}
-                resizeMode="cover"
             >
-                <TouchableWithoutFeedback
-                    onPress={(e) => handleTap(e.nativeEvent.locationX)}
-                    onLongPress={handleLongPressIn}
-                    onPressOut={handleLongPressOut}
-                    delayLongPress={150}
+                <ImageBackground
+                    source={getBackgroundSource()}
+                    style={styles.container}
+                    resizeMode="cover"
                 >
-                    <View style={styles.touchArea}>
-                        {/* Safe Area Content */}
-                        <SafeAreaView style={styles.safeArea}>
-                            {/* Progress Bar */}
-                            <StoryProgressBar
-                                totalSlides={totalSlides}
-                                currentSlide={currentSlide}
-                                isPaused={isPaused}
-                                onSlideComplete={goNext}
-                            />
-
-                            {/* Header */}
-                            <View style={styles.header}>
-                                <View style={styles.headerLeft}>
-                                    <Text style={styles.logoText}>VC WRAPPED</Text>
-                                </View>
-                                <TouchableOpacity 
-                                    onPress={handleClose}
-                                    style={styles.closeButton}
-                                    hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
-                                >
-                                    <Text style={styles.closeIcon}>✕</Text>
-                                </TouchableOpacity>
-                            </View>
-
-                            {/* Slide Content */}
-                            <Animated.View style={[styles.slideContainer, { opacity: fadeAnim }]}>
-                                <CurrentSlideComponent 
-                                    stats={stats} 
-                                    onReplay={handleReplay}
+                    <TouchableWithoutFeedback
+                        onPress={(e) => handleTap(e.nativeEvent.locationX)}
+                        onLongPress={handleLongPressIn}
+                        onPressOut={handleLongPressOut}
+                        delayLongPress={150}
+                    >
+                        <View style={styles.touchArea}>
+                            {/* Safe Area Content */}
+                            <SafeAreaView style={styles.safeArea}>
+                                {/* Progress Bar */}
+                                <StoryProgressBar
+                                    totalSlides={totalSlides}
+                                    currentSlide={currentSlide}
+                                    isPaused={isPaused}
+                                    onSlideComplete={goNext}
                                 />
-                            </Animated.View>
-                        </SafeAreaView>
-                    </View>
-                </TouchableWithoutFeedback>
-            </ImageBackground>
+
+                                {/* Header */}
+                                <View style={styles.header}>
+                                    <View style={styles.headerLeft}>
+                                        <Text style={styles.logoText}>VC WRAPPED</Text>
+                                    </View>
+                                    <TouchableOpacity 
+                                        onPress={handleClose}
+                                        style={styles.closeButton}
+                                        hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
+                                    >
+                                        <Text style={styles.closeIcon}>✕</Text>
+                                    </TouchableOpacity>
+                                </View>
+
+                                {/* Slide Content */}
+                                <Animated.View style={[styles.slideContainer, { opacity: fadeAnim }]}>
+                                    <CurrentSlideComponent 
+                                        stats={stats} 
+                                        onReplay={handleReplay}
+                                        onSaveWrapped={handleSaveWrapped}
+                                        isSaving={isSaving}
+                                    />
+                                </Animated.View>
+                            </SafeAreaView>
+                        </View>
+                    </TouchableWithoutFeedback>
+                </ImageBackground>
+            </ViewShot>
         </Modal>
     );
 };

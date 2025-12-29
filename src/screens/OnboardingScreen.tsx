@@ -2,18 +2,38 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ImageBackground } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import LinearGradient from 'react-native-linear-gradient';
+import MaskedView from '@react-native-masked-view/masked-view';
 import { fonts } from '../theme';
 
 interface OnboardingScreenProps {
     onOpenWrapped: () => void;
 }
 
+// Gradient Text Component
+const GradientText: React.FC<{ children: React.ReactNode; style?: any }> = ({ children, style }) => {
+    return (
+        <MaskedView
+            maskElement={
+                <Text style={[style, { backgroundColor: 'transparent' }]}>{children}</Text>
+            }
+        >
+            <LinearGradient
+                colors={['#8B2332', '#6B1B28']}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+            >
+                <Text style={[style, { opacity: 0 }]}>{children}</Text>
+            </LinearGradient>
+        </MaskedView>
+    );
+};
+
 const OnboardingScreen: React.FC<OnboardingScreenProps> = ({ onOpenWrapped }) => {
     const [isLoading, setIsLoading] = useState(false);
 
     const handlePress = () => {
         setIsLoading(true);
-        // Use setTimeout to ensure UI renders before async call
         setTimeout(() => {
             onOpenWrapped();
         }, 300);
@@ -26,12 +46,15 @@ const OnboardingScreen: React.FC<OnboardingScreenProps> = ({ onOpenWrapped }) =>
             resizeMode="cover"
         >
             <SafeAreaView style={styles.safeArea}>
-                {/* Main Content */}
                 <View style={styles.content}>
                     {/* Headline */}
                     <Text style={styles.headline}>
-                        This year you made{'\n'}your voice count
+                        This year you made
                     </Text>
+                    <View style={styles.gradientLine}>
+                        <Text style={styles.headline}>your </Text>
+                        <GradientText style={styles.headline}>voice count</GradientText>
+                    </View>
                     
                     {/* Subtitle */}
                     <Text style={styles.subheadline}>
@@ -67,17 +90,20 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         paddingHorizontal: 32,
-        paddingBottom: 180, // Push content up to avoid bottom illustrations
+        paddingBottom: 180,
     },
     headline: {
         fontSize: 32,
         fontFamily: fonts.bold,
-        color: '#7B2D26',
+        color: '#8B2332',
         textAlign: 'center',
         lineHeight: 42,
+    },
+    gradientLine: {
+        flexDirection: 'row',
+        alignItems: 'center',
         marginBottom: 16,
     },
-
     subheadline: {
         fontSize: 16,
         fontFamily: fonts.regular,
@@ -93,14 +119,15 @@ const styles = StyleSheet.create({
         paddingHorizontal: 32,
         borderRadius: 24,
         borderWidth: 2,
-        borderColor: '#7B2D26',
+        borderColor: '#8B2332',
         backgroundColor: 'transparent',
     },
     ctaText: {
         fontSize: 16,
         fontFamily: fonts.semiBold,
-        color: '#7B2D26',
+        color: '#8B2332',
     },
 });
 
 export default OnboardingScreen;
+

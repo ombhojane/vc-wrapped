@@ -1,24 +1,17 @@
 // FinalSlide - Emotional close with CTA
 import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';
 import { fonts } from '../../../theme';
 import { WrappedStats } from '../../../types';
 
 interface SlideProps {
     stats: WrappedStats;
     onReplay?: () => void;
+    onSaveWrapped?: () => void;
+    isSaving?: boolean;
 }
 
-const FinalSlide: React.FC<SlideProps> = ({ stats, onReplay }) => {
-    const handleSaveWrapped = () => {
-        // TODO: Implement with react-native-view-shot for capturing screenshots
-        Alert.alert(
-            'Save Wrapped',
-            'Your VC Wrapped 2025 has been saved to your gallery!',
-            [{ text: 'OK' }]
-        );
-    };
-
+const FinalSlide: React.FC<SlideProps> = ({ stats, onReplay, onSaveWrapped, isSaving }) => {
     return (
         <View style={styles.container}>
             {/* Header Branding - Top */}
@@ -43,18 +36,29 @@ const FinalSlide: React.FC<SlideProps> = ({ stats, onReplay }) => {
             {/* Action Buttons */}
             <View style={styles.actionsContainer}>
                 <TouchableOpacity 
-                    style={styles.primaryButton} 
+                    style={[styles.primaryButton, isSaving && styles.buttonDisabled]} 
                     activeOpacity={0.8}
-                    onPress={handleSaveWrapped}
+                    onPress={onSaveWrapped}
+                    disabled={isSaving}
                 >
-                    <Text style={styles.primaryButtonText}>Save My Wrapped</Text>
-                    <Text style={styles.buttonIcon}>⬇️</Text>
+                    {isSaving ? (
+                        <>
+                            <ActivityIndicator size="small" color="#FFFFFF" />
+                            <Text style={styles.primaryButtonText}>Saving...</Text>
+                        </>
+                    ) : (
+                        <>
+                            <Text style={styles.primaryButtonText}>Save My Wrapped</Text>
+                            <Text style={styles.buttonIcon}>⬇️</Text>
+                        </>
+                    )}
                 </TouchableOpacity>
 
                 <TouchableOpacity 
                     style={styles.secondaryButton}
                     onPress={onReplay}
                     activeOpacity={0.7}
+                    disabled={isSaving}
                 >
                     <Text style={styles.secondaryButtonText}>Replay Highlights</Text>
                     <Text style={styles.buttonIcon}>🔄</Text>
@@ -124,6 +128,9 @@ const styles = StyleSheet.create({
         backgroundColor: '#8B6914',
         paddingVertical: 14,
         borderRadius: 25,
+    },
+    buttonDisabled: {
+        opacity: 0.7,
     },
     primaryButtonText: {
         fontSize: 15,
