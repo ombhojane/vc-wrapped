@@ -18,7 +18,6 @@ const OnboardingScreen: React.FC<OnboardingScreenProps> = ({ onOpenWrapped }) =>
             <SafeAreaView style={styles.safeArea}>
                 {/* Header Logo */}
                 <View style={styles.header}>
-                    <Text style={styles.logoIcon}>📊</Text>
                     <Text style={styles.logoText}>VC WRAPPED</Text>
                 </View>
 
@@ -103,7 +102,7 @@ const styles = StyleSheet.create({
         lineHeight: 24,
     },
     ctaContainer: {
-        paddingBottom: 140, // Extra padding to position above illustrations
+        paddingBottom: 260, // Extra padding to position above illustrations
     },
     ctaButton: {
         flexDirection: 'row',

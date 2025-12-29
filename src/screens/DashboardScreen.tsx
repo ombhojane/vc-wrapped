@@ -49,7 +49,7 @@ const DashboardScreen: React.FC = () => {
     } = useCallData();
 
     if (isLoading) {
-        return <LoadingView message="Loading your call stats..." />;
+        return <LoadingView message="Loading your stats..." />;
     }
 
     if (!hasPermission) {

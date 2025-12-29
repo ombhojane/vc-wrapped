@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   ViewStyle,
+  ImageBackground,
 } from 'react-native';
 import Icon from '../Icon';
 import { colors, spacing, borderRadius, typography, shadow, fonts } from '../../theme';
@@ -91,11 +92,17 @@ export const CallTypeIcon: React.FC<CallTypeIconProps> = ({ type, size = 20 }) =
 };
 
 // Loading Indicator
-export const LoadingView: React.FC<{ message?: string }> = ({ message = 'Loading...' }) => (
-  <View style={styles.loadingContainer}>
-    <ActivityIndicator size="large" color={colors.primary} />
-    <Text style={styles.loadingText}>{message}</Text>
-  </View>
+export const LoadingView: React.FC<{ message?: string }> = ({ message = 'Loading' }) => (
+  <ImageBackground
+    source={require('../../../assets/designs/back5.png')}
+    style={styles.loadingBackground}
+    resizeMode="cover"
+  >
+    <View style={styles.loadingContainer}>
+      <ActivityIndicator size="large" color="#8B6914" />
+      <Text style={styles.loadingText}>{message}</Text>
+    </View>
+  </ImageBackground>
 );
 
 // Empty State
@@ -142,10 +149,11 @@ export const Pill: React.FC<PillProps> = ({ label, active, onPress }) => (
 
 const styles = StyleSheet.create({
   statCard: {
-    backgroundColor: colors.surface,
+    backgroundColor: 'rgba(245, 230, 211, 0.7)',
     borderRadius: borderRadius.lg,
     padding: spacing.md,
-    ...shadow,
+    borderWidth: 1,
+    borderColor: 'rgba(139, 105, 20, 0.15)',
   },
   iconContainer: {
     width: 44,
@@ -158,18 +166,18 @@ const styles = StyleSheet.create({
   statValue: {
     fontSize: 24,
     fontFamily: fonts.semiBold,
-    color: colors.textPrimary,
+    color: '#3B2415',
     marginBottom: spacing.xs,
   },
   statTitle: {
     fontSize: 14,
     fontFamily: fonts.regular,
-    color: colors.textSecondary,
+    color: '#5A4332',
   },
   statSubtitle: {
     fontSize: 12,
     fontFamily: fonts.regular,
-    color: colors.textMuted,
+    color: '#8B7B6B',
     marginTop: spacing.xs,
   },
   heroStat: {
@@ -179,33 +187,35 @@ const styles = StyleSheet.create({
   heroValue: {
     fontSize: 48,
     fontFamily: fonts.bold,
-    color: colors.primary,
+    color: '#8B6914',
   },
   heroLabel: {
     fontSize: 16,
     fontFamily: fonts.regular,
-    color: colors.textSecondary,
+    color: '#5A4332',
     marginTop: spacing.sm,
   },
   avatar: {
-    backgroundColor: colors.surfaceElevated,
+    backgroundColor: 'rgba(245, 230, 211, 0.9)',
     alignItems: 'center',
     justifyContent: 'center',
   },
   avatarText: {
     fontFamily: fonts.semiBold,
-    color: colors.textPrimary,
+    color: '#3B2415',
+  },
+  loadingBackground: {
+    flex: 1,
   },
   loadingContainer: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: colors.background,
   },
   loadingText: {
     fontSize: 16,
-    fontFamily: fonts.regular,
-    color: colors.textSecondary,
+    fontFamily: fonts.medium,
+    color: '#5A4332',
     marginTop: spacing.md,
   },
   emptyState: {
@@ -218,19 +228,19 @@ const styles = StyleSheet.create({
   emptyTitle: {
     fontSize: 18,
     fontFamily: fonts.semiBold,
-    color: colors.textPrimary,
+    color: '#3B2415',
     marginTop: spacing.lg,
     textAlign: 'center',
   },
   emptyMessage: {
     fontSize: 14,
     fontFamily: fonts.regular,
-    color: colors.textSecondary,
+    color: '#5A4332',
     textAlign: 'center',
     marginTop: spacing.sm,
   },
   emptyButton: {
-    backgroundColor: colors.primary,
+    backgroundColor: '#8B6914',
     paddingHorizontal: spacing.lg,
     paddingVertical: spacing.sm + 4,
     borderRadius: borderRadius.full,
@@ -244,7 +254,7 @@ const styles = StyleSheet.create({
   sectionHeader: {
     fontSize: 12,
     fontFamily: fonts.semiBold,
-    color: colors.textMuted,
+    color: '#8B7B6B',
     textTransform: 'uppercase',
     letterSpacing: 1,
     marginBottom: spacing.sm,

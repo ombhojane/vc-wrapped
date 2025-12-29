@@ -21,7 +21,7 @@ function App(): React.JSX.Element {
     const [currentScreen, setCurrentScreen] = useState<AppScreen>('onboarding');
     const [showWrapped, setShowWrapped] = useState(false);
 
-    const { callLogs } = useCallData();
+    const { callLogs, requestPermissions, hasPermission } = useCallData();
 
     const wrappedStats = useMemo(() => {
         if (callLogs.length === 0) return null;
@@ -29,7 +29,14 @@ function App(): React.JSX.Element {
     }, [callLogs]);
 
     // Handler for opening Wrapped from onboarding
-    const handleOpenWrapped = () => {
+    const handleOpenWrapped = async () => {
+        // Request permissions if not granted
+        if (!hasPermission) {
+            const granted = await requestPermissions();
+            if (!granted) {
+                // Still show wrapped even without data (will show demo/empty state)
+            }
+        }
         setShowWrapped(true);
     };
 
@@ -71,3 +78,4 @@ function App(): React.JSX.Element {
 }
 
 export default App;
+
