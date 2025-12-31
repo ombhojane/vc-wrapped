@@ -34,9 +34,12 @@ const OnboardingScreen: React.FC<OnboardingScreenProps> = ({ onOpenWrapped }) =>
 
     const handlePress = () => {
         setIsLoading(true);
-        setTimeout(() => {
-            onOpenWrapped();
-        }, 300);
+        // Use requestAnimationFrame to ensure UI updates before async call
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                onOpenWrapped();
+            });
+        });
     };
 
     return (

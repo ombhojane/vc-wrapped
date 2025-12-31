@@ -191,6 +191,9 @@ const WrappedModal: React.FC<WrappedModalProps> = ({ visible, onClose, stats }) 
         if (currentSlide === 5) { // CallTypesSlide
             return require('../../../assets/designs/back1.png');
         }
+        if (currentSlide === 6) { // MissedCallsSlide
+            return require('../../../assets/designs/back7.png');
+        }
         if (currentSlide === 9) { // FinalSlide
             return require('../../../assets/designs/back1.png');
         }
