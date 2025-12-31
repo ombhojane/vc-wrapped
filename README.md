@@ -1,97 +1,147 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# VC Wrapped 2025
 
-# Getting Started
+**See how you're connected to the people who shaped your year.**
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+Your phone knows who matters to you. Every call you made, every late-night conversation, every quick check-in - it's all there in your call logs. VC Wrapped reads your call history and turns it into a beautiful story about your relationships in 2025.
 
-## Step 1: Start Metro
+---
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+## What is this?
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+Think of it like **Spotify Wrapped, but for your phone calls**.
 
-```sh
-# Using npm
-npm start
+Instead of showing your top songs, VC Wrapped shows you:
+- **Who you talked to most** — your inner circle
+- **How much time you spent on calls** — in hours and days
+- **Your calling personality** — are you a Night Owl? A Listener First? A Catch-Up King?
+- **When you call most** — your peak hours and busiest days
+- **The calls you missed** — we all have them
 
-# OR using Yarn
-yarn start
+It's a 10-slide story that you can tap through, save to your gallery, and share with friends.
+
+---
+
+## How it works
+
+1. **Open the app** — tap "Replay my Year"
+2. **Grant permission** — the app needs to read your call logs (that's it, nothing else)
+3. **Watch your story** — tap through your personalized wrapped experience
+4. **Save & share** — download all slides to your phone
+
+Your data never leaves your device. The app reads your call logs locally and calculates everything on your phone.
+
+---
+
+## The Wrapped Experience
+
+The story takes you through:
+
+| Slide | What it shows |
+|-------|---------------|
+| Opening | Sets the tone — "This year, you made your voice count" |
+| Talk Time | Total hours spent on calls this year |
+| Personality | Your calling personality based on your patterns |
+| Inner Circle | Your top 3 people by talk time |
+| Time & Mood | When you call most — peak hour and busiest day |
+| Call Types | Breakdown of work vs. personal vs. fun calls |
+| Missed Calls | The ones that got away |
+| Growth | How your calling habits reflect your year |
+| Wisdom | A meaningful quote to take with you |
+| Final | Save your wrapped and replay anytime |
+
+---
+
+## Tech Stack
+
+This is a **React Native** app built for Android. Here's what powers it:
+
+| What | How |
+|------|-----|
+| **Framework** | React Native 0.83 |
+| **Language** | TypeScript |
+| **Call Log Access** | Custom native Android module (Java) |
+| **Animations** | React Native Reanimated |
+| **UI** | Custom components with Poppins font |
+| **Story Progress** | Instagram-style progress bars |
+| **Saving** | React Native View Shot + Camera Roll |
+| **Storage** | Async Storage (for app state) |
+
+### Project Structure
+
+```
+vc/
+├── App.tsx                    # Main app — manages screens and wrapped modal
+├── src/
+│   ├── screens/
+│   │   ├── OnboardingScreen   # Landing page with "Replay my Year" button
+│   │   ├── DashboardScreen    # After wrapped — shows your stats
+│   │   └── wrapped/
+│   │       ├── WrappedModal   # The story experience container
+│   │       └── slides/        # All 10 story slides
+│   ├── services/
+│   │   ├── callLogService     # Reads call logs from Android
+│   │   ├── contactsService    # Gets contact names
+│   │   └── statsProcessor     # Calculates all the wrapped stats
+│   ├── hooks/
+│   │   └── useCallData        # Main hook that fetches and processes data
+│   ├── components/            # Reusable UI components
+│   ├── theme/                 # Colors, fonts, styling
+│   └── types/                 # TypeScript interfaces
+├── android/                   # Native Android code
+│   └── .../CallLogModule.java # Custom module to read call logs
+└── assets/
+    ├── designs/               # Background images for slides
+    └── fonts/                 # Poppins font family
 ```
 
-## Step 2: Build and run your app
+### How the Stats Work
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+The `statsProcessor.ts` file takes your raw call logs and calculates:
 
-### Android
+- **Total talk time** — sum of all call durations
+- **Top contacts** — sorted by total time spent talking
+- **Personality** — based on call patterns (night calls, call length, incoming vs outgoing ratio)
+- **Peak hour** — the hour when you make the most calls
+- **Busiest day** — which day of the week you're most active
+- **Call type percentages** — work hours vs personal hours calls
 
-```sh
-# Using npm
-npm run android
+---
 
-# OR using Yarn
-yarn android
+## Running Locally
+
+### Prerequisites
+
+- Node.js 20+
+- Android Studio with SDK
+- A physical Android device or emulator
+
+### Setup
+
+```bash
+# Install dependencies
+npm install
+
+# Run on Android (in a new terminal)
+npx react-native run-android
+
+# Run on iOS (in a new terminal)
+npx react-native run-ios
 ```
 
-### iOS
+## Privacy
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
+**Your data stays on your phone.** 
 
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
+VC Wrapped reads your call logs locally and calculates everything on-device. No call data is sent anywhere. The only permission needed is `READ_CALL_LOG` (and optionally `READ_CONTACTS` to show names instead of numbers).
 
-```sh
-bundle install
-```
+---
 
-Then, and every time you update your native dependencies, run:
+## Credits
 
-```sh
-bundle exec pod install
-```
+Built with ❤️ by [Om bhojane](https://github.com/ombhojane) and Raksha Poojari to explore what our phones know about our relationships.
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+The idea is simple: **your calls tell a story**. This app just helps you see it.
 
-```sh
-# Using npm
-npm run ios
+---
 
-# OR using Yarn
-yarn ios
-```
-
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
-
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
-
-## Step 3: Modify your app
-
-Now that you have successfully run the app, let's make changes!
-
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
-
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
-
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+*"Keep calling the people who matter."*
