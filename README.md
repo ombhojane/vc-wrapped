@@ -138,7 +138,7 @@ VC Wrapped reads your call logs locally and calculates everything on-device. No 
 
 ## Credits
 
-Built with ❤️ by [Om bhojane](https://github.com/ombhojane) and Raksha Poojari to explore what our phones know about our relationships.
+Built by Raksha Poojari and Om Bhojane to explore what our phones know about our relationships.
 
 The idea is simple: **your calls tell a story**. This app just helps you see it.
 
