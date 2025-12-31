@@ -4,6 +4,8 @@
 
 Your phone knows who matters to you. Every call you made, every late-night conversation, every quick check-in - it's all there in your call logs. VC Wrapped reads your call history and turns it into a beautiful story about your relationships in 2025.
 
+<img width="1600" height="900" alt="vcwrapped" src="https://github.com/user-attachments/assets/8d7534ff-4551-424a-a0d0-d93d3b139cfc" />
+
 ---
 
 ## What is this?
